@@ -32,6 +32,11 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <div id="page-loader">
+      <div class="loader"></div>
+      <p id="loader-text">Loading...</p>
+  </div>
+
     @include('layout.sidebar')
     <div class="dashboard-main">
         @include('layout.header')
