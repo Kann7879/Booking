@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasRoles, Notifiable, HasSlug;
+    use HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
+        'foto',
         'email',
         'password',
     ];
