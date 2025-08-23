@@ -17,7 +17,7 @@ class PermissionGroup extends Model
         return $this->belongsTo(self::class, 'permission_group_id');
     }
 
-    public function child()
+    public function children()
     {
         return $this->hasMany(self::class, 'permission_group_id');
     }

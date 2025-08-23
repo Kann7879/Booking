@@ -17,13 +17,14 @@ class Menu extends Model
         return $this->belongsTo(self::class, 'menu_id');
     }
 
-    public function child()
+    public function children()
     {
         return $this->hasMany(self::class, 'menu_id');
     }
 
-    public function permissiongroup()
+    public function permissionGroup()
     {
         return $this->belongsTo(PermissionGroup::class, 'permission_group_id');
     }
+
 }

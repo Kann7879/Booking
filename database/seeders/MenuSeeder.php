@@ -16,6 +16,7 @@ class MenuSeeder extends Seeder
     {
         $settingAdmin = Menu::create([
             'nama_menu' => 'Setting Admin',
+            'permission_group_id' => 1,
             'icon' => 'settings',
             'status' => '1',
             'sort' => '1',
@@ -23,6 +24,7 @@ class MenuSeeder extends Seeder
 
         $userManagement = Menu::create([
             'menu_id' => $settingAdmin->id,
+            'permission_group_id' => 1,
             'nama_menu' => 'User Management',
             'status' => '1',
             'sort' => '2',

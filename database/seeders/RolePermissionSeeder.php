@@ -81,10 +81,12 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        Role::create([
+        $superAdmin = Role::create([
             'name' => 'Super Admin',
             'guard_name' => 'web'
         ]);
+
+        $superAdmin->givePermissionTo(Permission::all());
 
         $role = Role::create([
             'name' => 'User',

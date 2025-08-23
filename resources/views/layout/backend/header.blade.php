@@ -43,7 +43,7 @@
                   Shaidul Islam
                 </h6>
                 <span class="text-secondary-light fw-medium text-sm"
-                  >Admin</span
+                  >{{ Auth::user()->name }}</span
                 >
               </div>
               <button type="button" class="hover-text-danger">
