@@ -1,323 +1,125 @@
-<div class="sidebar">
-<div>
-        <a href="index.html" class="sidebar-logo">
-          <img
-            src="assets/images/logo.png"
-            alt="site logo"
-            class="light-logo"
-          />
-          <img
-            src="assets/images/logo-light.png"
-            alt="site logo"
-            class="dark-logo"
-          />
-          <img
-            src="assets/images/logo-icon.png"
-            alt="site logo"
-            class="logo-icon"
-          />
-        </a>
-      </div>
-      {{-- <div class="sidebar-menu-area">
-        <ul class="sidebar-menu" id="sidebar-menu">
-          <li>
-            <a href="{{route('dashboard')}}">
-              <iconify-icon icon="mage:home" class="menu-icon"></iconify-icon>
-              <span>Email</span>
+     <aside id="layout-menu" class="layout-menu menu-vertical menu">
+          <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <span class="text-primary">
+                  <svg width="32" height="18" viewBox="0 0 38 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M30.0944 2.22569C29.0511 0.444187 26.7508 -0.172113 24.9566 0.849138C23.1623 1.87039 22.5536 4.14247 23.5969 5.92397L30.5368 17.7743C31.5801 19.5558 33.8804 20.1721 35.6746 19.1509C37.4689 18.1296 38.0776 15.8575 37.0343 14.076L30.0944 2.22569Z"
+                      fill="currentColor" />
+                    <path
+                      d="M30.171 2.22569C29.1277 0.444187 26.8274 -0.172113 25.0332 0.849138C23.2389 1.87039 22.6302 4.14247 23.6735 5.92397L30.6134 17.7743C31.6567 19.5558 33.957 20.1721 35.7512 19.1509C37.5455 18.1296 38.1542 15.8575 37.1109 14.076L30.171 2.22569Z"
+                      fill="url(#paint0_linear_2989_100980)"
+                      fill-opacity="0.4" />
+                    <path
+                      d="M22.9676 2.22569C24.0109 0.444187 26.3112 -0.172113 28.1054 0.849138C29.8996 1.87039 30.5084 4.14247 29.4651 5.92397L22.5251 17.7743C21.4818 19.5558 19.1816 20.1721 17.3873 19.1509C15.5931 18.1296 14.9843 15.8575 16.0276 14.076L22.9676 2.22569Z"
+                      fill="currentColor" />
+                    <path
+                      d="M14.9558 2.22569C13.9125 0.444187 11.6122 -0.172113 9.818 0.849138C8.02377 1.87039 7.41502 4.14247 8.45833 5.92397L15.3983 17.7743C16.4416 19.5558 18.7418 20.1721 20.5361 19.1509C22.3303 18.1296 22.9391 15.8575 21.8958 14.076L14.9558 2.22569Z"
+                      fill="currentColor" />
+                    <path
+                      d="M14.9558 2.22569C13.9125 0.444187 11.6122 -0.172113 9.818 0.849138C8.02377 1.87039 7.41502 4.14247 8.45833 5.92397L15.3983 17.7743C16.4416 19.5558 18.7418 20.1721 20.5361 19.1509C22.3303 18.1296 22.9391 15.8575 21.8958 14.076L14.9558 2.22569Z"
+                      fill="url(#paint1_linear_2989_100980)"
+                      fill-opacity="0.4" />
+                    <path
+                      d="M7.82901 2.22569C8.87231 0.444187 11.1726 -0.172113 12.9668 0.849138C14.7611 1.87039 15.3698 4.14247 14.3265 5.92397L7.38656 17.7743C6.34325 19.5558 4.04298 20.1721 2.24875 19.1509C0.454514 18.1296 -0.154233 15.8575 0.88907 14.076L7.82901 2.22569Z"
+                      fill="currentColor" />
+                    <defs>
+                      <linearGradient
+                        id="paint0_linear_2989_100980"
+                        x1="5.36642"
+                        y1="0.849138"
+                        x2="10.532"
+                        y2="24.104"
+                        gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-opacity="1" />
+                        <stop offset="1" stop-opacity="0" />
+                      </linearGradient>
+                      <linearGradient
+                        id="paint1_linear_2989_100980"
+                        x1="5.19475"
+                        y1="0.849139"
+                        x2="10.3357"
+                        y2="24.1155"
+                        gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-opacity="1" />
+                        <stop offset="1" stop-opacity="0" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </span>
+              </span>
+              <span class="app-brand-text demo menu-text fw-semibold ms-2">Materialize</span>
             </a>
-          </li> @foreach($menus as $menu)
-                  <li class="{{ $menu->children->count() ? 'dropdown' : '' }}">
-                      <a href="{{ $menu->href ?? 'javascript:void(0)' }}">
-                          @if($menu->icon)
-                              <iconify-icon icon="{{ $menu->icon }}" class="menu-icon"></iconify-icon>
-                          @endif
-                          <span>{{ $menu->nama_menu }}</span>
-                      </a>
 
-                      @if($menu->children->count())
-                          <ul class="sidebar-submenu">
-                              @foreach($menu->children as $child)
-                                      <li>
-                                          <a href="{{ $child->href }}">
-                                              <i class="{{ $child->icon }}"></i> {{ $child->nama_menu }}
-                                          </a>
-                                      </li>
-                              @endforeach
-                          </ul>
-                      @endif
-                  </li>
-          @endforeach
-        </ul>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M8.47365 11.7183C8.11707 12.0749 8.11707 12.6531 8.47365 13.0097L12.071 16.607C12.4615 16.9975 12.4615 17.6305 12.071 18.021C11.6805 18.4115 11.0475 18.4115 10.657 18.021L5.83009 13.1941C5.37164 12.7356 5.37164 11.9924 5.83009 11.5339L10.657 6.707C11.0475 6.31653 11.6805 6.31653 12.071 6.707C12.4615 7.09747 12.4615 7.73053 12.071 8.121L8.47365 11.7183Z"
+                  fill-opacity="0.9" />
+                <path
+                  d="M14.3584 11.8336C14.0654 12.1266 14.0654 12.6014 14.3584 12.8944L18.071 16.607C18.4615 16.9975 18.4615 17.6305 18.071 18.021C17.6805 18.4115 17.0475 18.4115 16.657 18.021L11.6819 13.0459C11.3053 12.6693 11.3053 12.0587 11.6819 11.6821L16.657 6.707C17.0475 6.31653 17.6805 6.31653 18.071 6.707C18.4615 7.09747 18.4615 7.73053 18.071 8.121L14.3584 11.8336Z"
+                  fill-opacity="0.4" />
+              </svg>
+            </a>
+          </div>
 
-      </div> --}}
-        <div class="sidebar-menu-area">
-      <ul class="sidebar-menu" id="sidebar-menu">
-      <li class="sidebar-menu-group-title">Application</li>
-      <li>
-        <a href="{{route('dashboard')}}">
-          <iconify-icon icon="mage:email" class="menu-icon"></iconify-icon>
-          <span>Email</span>
-        </a>
-      </li>
-      <li>
-        <a href="chat-message.html">
-          <iconify-icon icon="bi:chat-dots" class="menu-icon"></iconify-icon>
-          <span>Chat</span> 
-        </a>
-      </li>
-      <li>
-        <a href="calendar-main.html">
-          <iconify-icon icon="solar:calendar-outline" class="menu-icon"></iconify-icon>
-          <span>Calendar</span> 
-        </a>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)">
-          <iconify-icon icon="hugeicons:invoice-03" class="menu-icon"></iconify-icon>
-          <span>Invoice</span> 
-        </a>
-        <ul class="sidebar-submenu">
-          <li>
-            <a href="invoice-list.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> List</a>
-          </li>
-          <li>
-            <a href="invoice-preview.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Preview</a>
-          </li>
-          <li>
-            <a href="invoice-add.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i> Add new</a>
-          </li>
-          <li>
-            <a href="invoice-edit.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Edit</a>
-          </li>
-        </ul>
-      </li>
+          <div class="menu-inner-shadow"></div>
 
-      <li class="sidebar-menu-group-title">Application</li> 
+          <ul class="menu-inner py-1">
+            <li class="menu-item">
+              <a href="{{ route('dashboard') }}" class="menu-link">
+                <i class="menu-icon icon-base ri ri-dashboard-line"></i>
+                <div data-i18n="Dashboard">Dashboard</div>
+              </a>
+            </li>
+@foreach($menus as $menu)
+    @php
+        $permissionName = optional($menu->permissionGroup)->name . ' Access';
+    @endphp
 
-      <li class="dropdown">
-        <a href="javascript:void(0)">
-          <iconify-icon icon="solar:document-text-outline" class="menu-icon"></iconify-icon>
-          <span>Components</span> 
-        </a>
-        <ul class="sidebar-submenu">
-          <li>
-            <a href="typography.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Typography</a>
-          </li>
-          <li>
-            <a href="colors.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Colors</a>
-          </li>
-          <li>
-            <a href="button.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i> Button</a>
-          </li>
-          <li>
-            <a href="dropdown.html"><i class="ri-circle-fill circle-icon text-lilac-600 w-auto"></i> Dropdown</a>
-          </li>
-          <li>
-            <a href="alert.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Alerts</a>
-          </li>
-          <li>
-            <a href="card.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Card</a>
-          </li>
-          <li>
-            <a href="carousel.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i> Carousel</a>
-          </li>
-          <li>
-            <a href="avatar.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i> Avatars</a>
-          </li>
-          <li>
-            <a href="progress.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Progress bar</a>
-          </li>
-          <li>
-            <a href="tabs.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Tab & Accordion</a>
-          </li>
-          <li>
-            <a href="pagination.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Pagination</a>
-          </li>
-          <li>
-            <a href="badges.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i> Badges</a>
-          </li>
-          <li>
-            <a href="tooltip.html"><i class="ri-circle-fill circle-icon text-lilac-600 w-auto"></i> Tooltip & Popover</a>
-          </li>
-          <li>
-            <a href="videos.html"><i class="ri-circle-fill circle-icon text-cyan w-auto"></i> Videos</a>
-          </li>
-          <li>
-            <a href="star-rating.html"><i class="ri-circle-fill circle-icon text-indigo w-auto"></i> Star Ratings</a>
-          </li>
-          <li>
-            <a href="tags.html"><i class="ri-circle-fill circle-icon text-purple w-auto"></i> Tags</a>
-          </li>
-          <li>
-            <a href="list.html"><i class="ri-circle-fill circle-icon text-red w-auto"></i> List</a>
-          </li>
-          <li>
-            <a href="calendar.html"><i class="ri-circle-fill circle-icon text-yellow w-auto"></i> Calendar</a>
-          </li>
-          <li>
-            <a href="radio.html"><i class="ri-circle-fill circle-icon text-orange w-auto"></i> Radio</a>
-          </li>
-          <li>
-            <a href="switch.html"><i class="ri-circle-fill circle-icon text-pink w-auto"></i> Switch</a>
-          </li>
-          <li>
-            <a href="image-upload.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Upload</a>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)">
-          <iconify-icon icon="heroicons:document" class="menu-icon"></iconify-icon>
-          <span>Forms</span> 
-        </a>
-        <ul class="sidebar-submenu">
-          <li>
-            <a href="form.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Input Forms</a>
-          </li>
-          <li>
-            <a href="form-layout.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Input Layout</a>
-          </li>
-          <li>
-            <a href="form-validation.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i> Form Validation</a>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)">
-          <iconify-icon icon="mingcute:storage-line" class="menu-icon"></iconify-icon>
-          <span>Table</span> 
-        </a>
-        <ul class="sidebar-submenu">
-          <li>
-            <a href="table-basic.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Basic Table</a>
-          </li>
-          <li>
-            <a href="table-data.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Data Table</a>
-          </li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)">
-          <iconify-icon icon="solar:pie-chart-outline" class="menu-icon"></iconify-icon>
-          <span>Chart</span> 
-        </a>
-        <ul class="sidebar-submenu">
-          <li>
-            <a href="line-chart.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Line Chart</a>
-          </li>
-          <li>
-            <a href="column-chart.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Column Chart</a>
-          </li>
-          <li>
-            <a href="pie-chart.html"><i class="ri-circle-fill circle-icon text-success-main w-auto"></i> Pie Chart</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="widgets.html">
-          <iconify-icon icon="fe:vector" class="menu-icon"></iconify-icon>
-          <span>Widgets</span> 
-        </a>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)">
-          <iconify-icon icon="flowbite:users-group-outline" class="menu-icon"></iconify-icon>
-          <span>Users</span> 
-        </a>
-        <ul class="sidebar-submenu">
-          <li>
-            <a href="users-list.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Users List</a>
-          </li>
-          <li>
-            <a href="users-grid.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Users Grid</a>
-          </li>
-          <li>
-            <a href="add-user.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i> Add User</a>
-          </li>
-          <li>
-            <a href="view-profile.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> View Profile</a>
-          </li>
-        </ul>
-      </li>
+    @can($permissionName)
+        @if($menu->children->isNotEmpty())
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    @if($menu->icon)
+                        <i class="menu-icon icon-base ri {{ $menu->icon }}"></i>
+                    @endif
+                    <div data-i18n="{{ $menu->nama_menu }}">{{ $menu->nama_menu }}</div>
+                </a>
+                <ul class="menu-sub">
+                    @foreach($menu->children as $child)
+                        @php
+                            $childPermissionName = optional($child->permissionGroup)->name . ' Access';
+                        @endphp
+                        @can($childPermissionName)
+                            <li class="menu-item">
+                                <a href="{{ $child->href ?? '#' }}" class="menu-link">
+                                    <div data-i18n="{{ $child->nama_menu }}">{{ $child->nama_menu }}</div>
+                                </a>
+                            </li>
+                        @endcan
+                    @endforeach
+                </ul>
+            </li>
+        @else
+            <li class="menu-item">
+                <a href="{{ $menu->href ?? '#' }}" class="menu-link">
+                    @if($menu->icon)
+                        <i class="menu-icon icon-base ri {{ $menu->icon }}"></i>
+                    @endif
+                    <div data-i18n="{{ $menu->nama_menu }}">{{ $menu->nama_menu }}</div>
+                </a>
+            </li>
+        @endif
+    @endcan
+@endforeach
+          </ul>
+        </aside>
 
-      <li class="sidebar-menu-group-title">Application</li>
-
-      <li class="dropdown">
-        <a href="javascript:void(0)">
-          <iconify-icon icon="simple-line-icons:vector" class="menu-icon"></iconify-icon>
-          <span>Authentication</span> 
-        </a>
-        <ul class="sidebar-submenu">
-          <li>
-            <a href="sign-in.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Sign In</a>
-          </li>
-          <li>
-            <a href="sign-up.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Sign Up</a>
-          </li>
-          <li>
-            <a href="forgot-password.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i> Forgot Password</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="gallery.html">
-          <iconify-icon icon="solar:gallery-wide-linear" class="menu-icon"></iconify-icon>
-          <span>Gallery</span> 
-        </a>
-      </li>
-      <li>
-        <a href="pricing.html">
-          <iconify-icon icon="hugeicons:money-send-square" class="menu-icon"></iconify-icon>
-          <span>Pricing</span> 
-        </a>
-      </li>
-      <li>
-        <a href="faq.html">
-          <iconify-icon icon="mage:message-question-mark-round" class="menu-icon"></iconify-icon>
-          <span>FAQs.</span> 
-        </a>
-      </li>
-      <li>
-        <a href="error.html">
-          <iconify-icon icon="streamline:straight-face" class="menu-icon"></iconify-icon>
-          <span>404</span> 
-        </a>
-      </li>
-      <li>
-        <a href="terms-condition.html">
-          <iconify-icon icon="octicon:info-24" class="menu-icon"></iconify-icon>
-          <span>Terms & Conditions</span> 
-        </a>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)">
-          <iconify-icon icon="icon-park-outline:setting-two" class="menu-icon"></iconify-icon>
-          <span>Settings</span> 
-        </a>
-        <ul class="sidebar-submenu">
-          <li>
-            <a href="company.html"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Company</a>
-          </li>
-          <li>
-            <a href="notification.html"><i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Notification</a>
-          </li>
-          <li>
-            <a href="notification-alert.html"><i class="ri-circle-fill circle-icon text-info-main w-auto"></i> Notification Alert</a>
-          </li>
-          <li>
-            <a href="theme.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Theme</a>
-          </li>
-          <li>
-            <a href="currencies.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Currencies</a>
-          </li>
-          <li>
-            <a href="language.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Languages</a>
-          </li>
-          <li>
-            <a href="payment-gateway.html"><i class="ri-circle-fill circle-icon text-danger-main w-auto"></i> Payment Gateway</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
+        <div class="menu-mobile-toggler d-xl-none rounded-1">
+          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large text-bg-secondary p-2 rounded-1">
+            <i class="ri ri-menu-line icon-base"></i>
+            <i class="ri ri-arrow-right-s-line icon-base"></i>
+          </a>
+        </div>

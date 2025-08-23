@@ -8,23 +8,23 @@ use App\Models\PermissionGroup;
 
 class Menu extends Model
 {
-    use HasFactory;
-
-    protected $guarded = ['id'];
-
-    public function parent()
-    {
-        return $this->belongsTo(self::class, 'menu_id');
-    }
+    use hasFactory;
+    protected $fillable = [
+        'menu_id', 'nama_menu', 'icon', 'permission_group_id', 'href', 'status', 'sort'
+    ];
 
     public function children()
     {
-        return $this->hasMany(self::class, 'menu_id');
+        return $this->hasMany(Menu::class, 'menu_id')->orderBy('sort');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(Menu::class, 'menu_id');
+    }
     public function permissionGroup()
     {
         return $this->belongsTo(PermissionGroup::class, 'permission_group_id');
     }
-
+    
 }
