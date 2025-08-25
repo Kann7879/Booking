@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Traits\UsersAuthorizable;
 use App\Models\User;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -11,19 +13,17 @@ use App\DataTables\UserDataTable;
 
 class UserController extends Controller
 {
-    use UsersAuthorizable;
+    // use UsersAuthorizable;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request,UserDataTable $dataTable)
+    public function index()
     {
-        if($request->ajax()){
-            return $dataTable->ajax();
-        }
-        return $dataTable->render('user.index');
+        $this->data['users'] = User::all();
+        return view('user.index', $this->data);
     }
 
     /**
@@ -43,9 +43,24 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('foto')) {
+            $fileName = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('uploads/users'), $fileName);
+            $data['foto'] = $fileName;
+        } else {
+            $data['foto'] = 'no_image.jpg';
+        }
+
+        $data['password'] = Hash::make($data['password']);
+
+        $user = User::create($data);
+        $user->assignRole('user');
+
+        return redirect('/user')->with('success', 'New user has been created!');
     }
 
     /**

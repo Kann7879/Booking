@@ -475,92 +475,36 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
   if (dt_select_table) {
     dt_select = new DataTable(dt_select_table, {
-      ajax: assetsPath + 'json/table-datatable.json',
-      columns: [
-        { data: 'id', orderable: false, render: DataTable.render.select() },
-        { data: 'full_name' },
-        { data: 'post' },
-        { data: 'email' },
-        { data: 'city' },
-        { data: 'start_date' },
-        { data: 'salary' },
-        { data: 'status' }
-      ],
-      columnDefs: [
-        {
-          // For Checkboxes
-          targets: 0,
-          searchable: false,
-          orderable: false,
-          render: function () {
-            return '<input type="checkbox" class="dt-checkboxes form-check-input">';
-          },
-          checkboxes: {
-            selectRow: true,
-            selectAllRender: '<input type="checkbox" class="form-check-input">'
-          }
-        },
-        {
-          // Label
-          targets: -1,
-          render: function (data, type, full, meta) {
-            const statusNumber = full.status;
-            const statuses = {
-              1: { title: 'Current', class: 'bg-label-primary' },
-              2: { title: 'Professional', class: 'bg-label-success' },
-              3: { title: 'Rejected', class: 'bg-label-danger' },
-              4: { title: 'Resigned', class: 'bg-label-warning' },
-              5: { title: 'Applied', class: 'bg-label-info' }
-            };
-
-            if (typeof statuses[statusNumber] === 'undefined') {
-              return data;
-            }
-
-            return `
-              <span class="badge rounded-pill ${statuses[statusNumber].class}">
-                ${statuses[statusNumber].title}
-              </span>
-            `;
-          }
-        }
-      ],
-      order: [[1, 'desc']],
-      layout: {
-        topStart: {
-          rowClass: 'row mx-2 justify-content-between',
-          features: [
+        columnDefs: [
             {
-              pageLength: {
-                menu: [7, 10, 25, 50, 100],
-                text: 'Show_MENU_entries'
-              }
-            }
-          ]
-        },
-        topEnd: {
-          search: {
-            placeholder: 'Type search here'
-          }
-        },
-        bottomStart: {
-          rowClass: 'row mx-2 justify-content-between',
-          features: ['info']
-        },
-        bottomEnd: 'paging'
-      },
-      language: {
-        paginate: {
-          next: '<i class="icon-base ri ri-arrow-right-s-line scaleX-n1-rtl icon-22px"></i>',
-          previous: '<i class="icon-base ri ri-arrow-left-s-line scaleX-n1-rtl icon-22px"></i>',
-          first: '<i class="icon-base ri ri-skip-back-mini-line scaleX-n1-rtl icon-22px"></i>',
-          last: '<i class="icon-base ri ri-skip-forward-mini-line scaleX-n1-rtl icon-22px"></i>'
-        }
-      },
-      select: {
-        // Select style
-        style: 'multi'
-      }
+                targets: 0,
+                orderable: false,
+                checkboxes: {
+                    selectRow: true,
+                    selectAllRender:
+                        '<input type="checkbox" class="form-check-input">',
+                },
+                render: function () {
+                    return '<input type="checkbox" class="dt-checkboxes form-check-input">';
+                },
+            },
+            {
+                targets: -1,
+                render: function (data) {
+                    const statuses = {
+                        1: { title: "Current", class: "bg-label-primary" },
+                        2: { title: "Professional", class: "bg-label-success" },
+                    };
+                    return `<span class="badge rounded-pill ${
+                        statuses[data]?.class ?? ""
+                    }">
+          ${statuses[data]?.title ?? data}
+        </span>`;
+                },
+            },
+        ],
+        order: [[1, "desc"]],
+        select: { style: "multi" },
     });
   }
   // Filter form control to default size

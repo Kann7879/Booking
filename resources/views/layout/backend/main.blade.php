@@ -30,21 +30,28 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/fonts/iconify-icons.css')}}" />
 
     <!-- Core CSS -->
-    <!-- build:css assets/vendor/css/theme.css -->
-
+    <!-- build:css assets/vendor/css/theme.css -->    
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/node-waves/node-waves.css')}}" />
-
     <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
 
-    <!-- Vendors CSS -->
 
+    <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
-    <!-- endbuild -->
-
+    <!-- endbuild -->    
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/plyr/plyr.css')}}" />
-
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-fixedcolumns-bs5/fixedcolumns.bootstrap5.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-fixedheader-bs5/fixedheader.bootstrap5.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+    <!-- Row Group CSS -->
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css')}}" />
+    <!-- Form Validation -->
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/@form-validation/form-validation.css')}}" />
     <!-- Page CSS -->
 
     <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/app-academy-details.css')}}" />
@@ -71,9 +78,7 @@
             @include('layout.backend.header')
             <!-- Content wrapper -->
             <div class="content-wrapper">
-              <div class="container-xxl flex-grow-1 container-p-y">
                   @yield('container')  
-              </div>    
             </div>
           </div>
       </div>  
@@ -84,31 +89,38 @@
     <!-- build:js assets/vendor/js/theme.js  -->
 
     <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
-
     <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/node-waves/node-waves.js')}}"></script>
-
     <script src="{{asset('assets/vendor/libs/@algolia/autocomplete-js.js')}}"></script>
-
     <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/hammer/hammer.js')}}"></script>
-
     <script src="{{asset('assets/vendor/libs/i18n/i18n.js')}}"></script>
-
     <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{asset('assets/vendor/libs/plyr/plyr.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
+    <!-- Flat Picker -->
+    <script src="{{asset('assets/vendor/libs/cleave-zen/cleave-zen.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+    <<!-- Form Validation -->
+    <script src="{{asset('assets/vendor/libs/@form-validation/popular.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/@form-validation/bootstrap5.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/@form-validation/auto-focus.js')}}"></script>
 
     <!-- Main JS -->
-
     <script src="{{asset('assets/js/main.js')}}"></script>
 
     <!-- Page JS -->
+    <script src="{{asset('assets/js/tables-datatables-basic.js')}}"></script>
+    <script src="{{asset('assets/js/tables-datatables-extensions.js')}}"></script>
+    <script src="{{asset('assets/js/form-layouts.js')}}"></script>
     <script src="{{asset('assets/js/app-academy-course-details.js')}}"></script>
+
   </body>
 </html>
   
