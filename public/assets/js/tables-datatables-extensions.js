@@ -5,115 +5,232 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function (e) {
-  const dt_scrollable_table = document.querySelector('.dt-scrollableTable');
-  let dt_scrollableTable;
+  // const dt_scrollable_table = document.querySelector('.dt-scrollableTable');
+  // let dt_scrollableTable;
 
   // Scrollable
   // --------------------------------------------------------------------
 
-  if (dt_scrollable_table) {
-    dt_scrollableTable = new DataTable(dt_scrollable_table, {
-      ajax: assetsPath + 'json/table-datatable.json',
-      columns: [
-        { data: 'full_name' },
-        { data: 'post' },
-        { data: 'email' },
-        { data: 'city' },
-        { data: 'start_date' },
-        { data: 'salary' },
-        { data: 'age' },
-        { data: 'experience' },
-        { data: '' },
-        { data: '' }
-      ],
-      columnDefs: [
-        {
-          // Label
-          targets: -2,
-          render: function (data, type, full, meta) {
-            const statusNumber = full.status;
-            const statuses = {
-              1: { title: 'Current', class: 'bg-label-primary' },
-              2: { title: 'Professional', class: 'bg-label-success' },
-              3: { title: 'Rejected', class: 'bg-label-danger' },
-              4: { title: 'Resigned', class: 'bg-label-warning' },
-              5: { title: 'Applied', class: 'bg-label-info' }
-            };
+  // if (dt_scrollable_table) {
+  //   dt_scrollableTable = new DataTable(dt_scrollable_table, {
+  //     ajax: '',
+  //     columns: [
+  //       { data: 'full_name' },
+  //       { data: 'post' },
+  //       { data: 'email' },
+  //       { data: 'city' },
+  //       { data: 'start_date' },
+  //       { data: 'salary' },
+  //       { data: 'age' },
+  //       { data: 'experience' },
+  //       { data: '' },
+  //       { data: '' }
+  //     ],
+  //     columnDefs: [
+  //       {
+  //         // Label
+  //         targets: -2,
+  //         render: function (data, type, full, meta) {
+  //           const statusNumber = full.status;
+  //           const statuses = {
+  //             1: { title: 'Current', class: 'bg-label-primary' },
+  //             2: { title: 'Professional', class: 'bg-label-success' },
+  //             3: { title: 'Rejected', class: 'bg-label-danger' },
+  //             4: { title: 'Resigned', class: 'bg-label-warning' },
+  //             5: { title: 'Applied', class: 'bg-label-info' }
+  //           };
 
-            if (typeof statuses[statusNumber] === 'undefined') {
-              return data;
-            }
+  //           if (typeof statuses[statusNumber] === 'undefined') {
+  //             return data;
+  //           }
 
-            return `
+  //           return `
+  //             <span class="badge rounded-pill ${statuses[statusNumber].class}">
+  //               ${statuses[statusNumber].title}
+  //             </span>
+  //           `;
+  //         }
+  //       },
+  //       {
+  //         // Actions
+  //         targets: -1,
+  //         title: 'Actions',
+  //         searchable: false,
+  //         className: 'd-flex align-items-center',
+  //         orderable: false,
+  //         render: function (data, type, full, meta) {
+  //           return (
+  //             '<div class="d-inline-block">' +
+  //             '<a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="icon-base ri ri-more-2-fill icon-20px"></i></a>' +
+  //             '<div class="dropdown-menu dropdown-menu-end m-0">' +
+  //             '<a href="javascript:;" class="dropdown-item">Details</a>' +
+  //             '<a href="javascript:;" class="dropdown-item">Archive</a>' +
+  //             '<div class="dropdown-divider"></div>' +
+  //             '<a href="javascript:;" class="dropdown-item text-danger delete-record">Delete</a>' +
+  //             '</div>' +
+  //             '</div>' +
+  //             '<a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit"><i class="icon-base ri ri-edit-box-line icon-20px"></i></a>'
+  //           );
+  //         }
+  //       }
+  //     ],
+  //     // Scroll options
+  //     scrollY: '300px',
+  //     scrollX: true,
+  //     layout: {
+  //       topStart: {
+  //         rowClass: 'row mx-2 justify-content-between',
+  //         features: [
+  //           {
+  //             pageLength: {
+  //               menu: [7, 10, 25, 50, 100],
+  //               text: 'Show_MENU_entries'
+  //             }
+  //           }
+  //         ]
+  //       },
+  //       topEnd: {
+  //         search: {
+  //           placeholder: 'Type search here'
+  //         }
+  //       },
+  //       bottomStart: {
+  //         rowClass: 'row mx-2 justify-content-between',
+  //         features: ['info']
+  //       },
+  //       bottomEnd: 'paging'
+  //     },
+  //     language: {
+  //       paginate: {
+  //         next: '<i class="icon-base ri ri-arrow-right-s-line scaleX-n1-rtl icon-22px"></i>',
+  //         previous: '<i class="icon-base ri ri-arrow-left-s-line scaleX-n1-rtl icon-22px"></i>',
+  //         first: '<i class="icon-base ri ri-skip-back-mini-line scaleX-n1-rtl icon-22px"></i>',
+  //         last: '<i class="icon-base ri ri-skip-forward-mini-line scaleX-n1-rtl icon-22px"></i>'
+  //       }
+  //     },
+  //     initComplete: function (settings, json) {
+  //       // Add the mti-n1 class to the first row in tbody
+  //       dt_scrollable_table.querySelector('tbody tr:first-child').classList.add('border-top-0');
+  //     }
+  //   });
+  // }
+
+   const dt_scrollable_table = document.querySelector(".dt-scrollableTable");
+   let dt_scrollableTable;
+
+   // Scrollable
+   // --------------------------------------------------------------------
+
+   if (dt_scrollable_table) {
+       dt_scrollableTable = new DataTable(dt_scrollable_table, {
+           ajax: assetsPath + "json/table-datatable.json",
+           columns: [
+               { data: "full_name" },
+               { data: "post" },
+               { data: "email" },
+               { data: "city" },
+               { data: "start_date" },
+               { data: "salary" },
+               { data: "age" },
+               { data: "experience" },
+               { data: "" },
+               { data: "" },
+           ],
+           columnDefs: [
+               {
+                   // Label
+                   targets: -2,
+                   render: function (data, type, full, meta) {
+                       const statusNumber = full.status;
+                       const statuses = {
+                           1: { title: "Current", class: "bg-label-primary" },
+                           2: {
+                               title: "Professional",
+                               class: "bg-label-success",
+                           },
+                           3: { title: "Rejected", class: "bg-label-danger" },
+                           4: { title: "Resigned", class: "bg-label-warning" },
+                           5: { title: "Applied", class: "bg-label-info" },
+                       };
+
+                       if (typeof statuses[statusNumber] === "undefined") {
+                           return data;
+                       }
+
+                       return `
               <span class="badge rounded-pill ${statuses[statusNumber].class}">
                 ${statuses[statusNumber].title}
               </span>
             `;
-          }
-        },
-        {
-          // Actions
-          targets: -1,
-          title: 'Actions',
-          searchable: false,
-          className: 'd-flex align-items-center',
-          orderable: false,
-          render: function (data, type, full, meta) {
-            return (
-              '<div class="d-inline-block">' +
-              '<a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="icon-base ri ri-more-2-fill icon-20px"></i></a>' +
-              '<div class="dropdown-menu dropdown-menu-end m-0">' +
-              '<a href="javascript:;" class="dropdown-item">Details</a>' +
-              '<a href="javascript:;" class="dropdown-item">Archive</a>' +
-              '<div class="dropdown-divider"></div>' +
-              '<a href="javascript:;" class="dropdown-item text-danger delete-record">Delete</a>' +
-              '</div>' +
-              '</div>' +
-              '<a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit"><i class="icon-base ri ri-edit-box-line icon-20px"></i></a>'
-            );
-          }
-        }
-      ],
-      // Scroll options
-      scrollY: '300px',
-      scrollX: true,
-      layout: {
-        topStart: {
-          rowClass: 'row mx-2 justify-content-between',
-          features: [
-            {
-              pageLength: {
-                menu: [7, 10, 25, 50, 100],
-                text: 'Show_MENU_entries'
-              }
-            }
-          ]
-        },
-        topEnd: {
-          search: {
-            placeholder: 'Type search here'
-          }
-        },
-        bottomStart: {
-          rowClass: 'row mx-2 justify-content-between',
-          features: ['info']
-        },
-        bottomEnd: 'paging'
-      },
-      language: {
-        paginate: {
-          next: '<i class="icon-base ri ri-arrow-right-s-line scaleX-n1-rtl icon-22px"></i>',
-          previous: '<i class="icon-base ri ri-arrow-left-s-line scaleX-n1-rtl icon-22px"></i>',
-          first: '<i class="icon-base ri ri-skip-back-mini-line scaleX-n1-rtl icon-22px"></i>',
-          last: '<i class="icon-base ri ri-skip-forward-mini-line scaleX-n1-rtl icon-22px"></i>'
-        }
-      },
-      initComplete: function (settings, json) {
-        // Add the mti-n1 class to the first row in tbody
-        dt_scrollable_table.querySelector('tbody tr:first-child').classList.add('border-top-0');
-      }
-    });
-  }
+                   },
+               },
+               {
+                   // Actions
+                   targets: -1,
+                   title: "Actions",
+                   searchable: false,
+                   className: "d-flex align-items-center",
+                   orderable: false,
+                   render: function (data, type, full, meta) {
+                       return (
+                           '<div class="d-inline-block">' +
+                           '<a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="icon-base ri ri-more-2-fill icon-20px"></i></a>' +
+                           '<div class="dropdown-menu dropdown-menu-end m-0">' +
+                           '<a href="javascript:;" class="dropdown-item">Details</a>' +
+                           '<a href="javascript:;" class="dropdown-item">Archive</a>' +
+                           '<div class="dropdown-divider"></div>' +
+                           '<a href="javascript:;" class="dropdown-item text-danger delete-record">Delete</a>' +
+                           "</div>" +
+                           "</div>" +
+                           '<a href="javascript:;" class="btn btn-sm btn-text-secondary rounded-pill btn-icon item-edit"><i class="icon-base ri ri-edit-box-line icon-20px"></i></a>'
+                       );
+                   },
+               },
+           ],
+           // Scroll options
+           scrollY: "300px",
+           scrollX: true,
+           layout: {
+               topStart: {
+                   rowClass: "row mx-2 justify-content-between",
+                   features: [
+                       {
+                           pageLength: {
+                               menu: [7, 10, 25, 50, 100],
+                               text: "Show_MENU_entries",
+                           },
+                       },
+                   ],
+               },
+               topEnd: {
+                   search: {
+                       placeholder: "Type search here",
+                   },
+               },
+               bottomStart: {
+                   rowClass: "row mx-2 justify-content-between",
+                   features: ["info"],
+               },
+               bottomEnd: "paging",
+           },
+           language: {
+               paginate: {
+                   next: '<i class="icon-base ri ri-arrow-right-s-line scaleX-n1-rtl icon-22px"></i>',
+                   previous:
+                       '<i class="icon-base ri ri-arrow-left-s-line scaleX-n1-rtl icon-22px"></i>',
+                   first: '<i class="icon-base ri ri-skip-back-mini-line scaleX-n1-rtl icon-22px"></i>',
+                   last: '<i class="icon-base ri ri-skip-forward-mini-line scaleX-n1-rtl icon-22px"></i>',
+               },
+           },
+           initComplete: function (settings, json) {
+               // Add the mti-n1 class to the first row in tbody
+               dt_scrollable_table
+                   .querySelector("tbody tr:first-child")
+                   .classList.add("border-top-0");
+           },
+       });
+   }
+
 
   // FixedHeader
   // --------------------------------------------------------------------
@@ -475,36 +592,92 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
   if (dt_select_table) {
     dt_select = new DataTable(dt_select_table, {
-        columnDefs: [
+      ajax: assetsPath + 'json/table-datatable.json',
+      columns: [
+        { data: 'id', orderable: false, render: DataTable.render.select() },
+        { data: 'full_name' },
+        { data: 'post' },
+        { data: 'email' }, 
+        { data: 'city' },
+        { data: 'start_date' },
+        { data: 'salary' },
+        { data: 'status' }
+      ],
+      columnDefs: [
+        {
+          // For Checkboxes
+          targets: 0,
+          searchable: false,
+          orderable: false,
+          render: function () {
+            return '<input type="checkbox" class="dt-checkboxes form-check-input">';
+          },
+          checkboxes: {
+            selectRow: true,
+            selectAllRender: '<input type="checkbox" class="form-check-input">'
+          }
+        },
+        {
+          // Label
+          targets: -1,
+          render: function (data, type, full, meta) {
+            const statusNumber = full.status;
+            const statuses = {
+              1: { title: 'Current', class: 'bg-label-primary' },
+              2: { title: 'Professional', class: 'bg-label-success' },
+              3: { title: 'Rejected', class: 'bg-label-danger' },
+              4: { title: 'Resigned', class: 'bg-label-warning' },
+              5: { title: 'Applied', class: 'bg-label-info' }
+            };
+
+            if (typeof statuses[statusNumber] === 'undefined') {
+              return data;
+            }
+
+            return `
+              <span class="badge rounded-pill ${statuses[statusNumber].class}">
+                ${statuses[statusNumber].title}
+              </span>
+            `;
+          }
+        }
+      ],
+      order: [[1, 'desc']],
+      layout: {
+        topStart: {
+          rowClass: 'row mx-2 justify-content-between',
+          features: [
             {
-                targets: 0,
-                orderable: false,
-                checkboxes: {
-                    selectRow: true,
-                    selectAllRender:
-                        '<input type="checkbox" class="form-check-input">',
-                },
-                render: function () {
-                    return '<input type="checkbox" class="dt-checkboxes form-check-input">';
-                },
-            },
-            {
-                targets: -1,
-                render: function (data) {
-                    const statuses = {
-                        1: { title: "Current", class: "bg-label-primary" },
-                        2: { title: "Professional", class: "bg-label-success" },
-                    };
-                    return `<span class="badge rounded-pill ${
-                        statuses[data]?.class ?? ""
-                    }">
-          ${statuses[data]?.title ?? data}
-        </span>`;
-                },
-            },
-        ],
-        order: [[1, "desc"]],
-        select: { style: "multi" },
+              pageLength: {
+                menu: [7, 10, 25, 50, 100],
+                text: 'Show_MENU_entries'
+              }
+            }
+          ]
+        },
+        topEnd: {
+          search: {
+            placeholder: 'Type search here'
+          }
+        },
+        bottomStart: {
+          rowClass: 'row mx-2 justify-content-between',
+          features: ['info']
+        },
+        bottomEnd: 'paging'
+      },
+      language: {
+        paginate: {
+          next: '<i class="icon-base ri ri-arrow-right-s-line scaleX-n1-rtl icon-22px"></i>',
+          previous: '<i class="icon-base ri ri-arrow-left-s-line scaleX-n1-rtl icon-22px"></i>',
+          first: '<i class="icon-base ri ri-skip-back-mini-line scaleX-n1-rtl icon-22px"></i>',
+          last: '<i class="icon-base ri ri-skip-forward-mini-line scaleX-n1-rtl icon-22px"></i>'
+        }
+      },
+      select: {
+        // Select style
+        style: 'multi'
+      }
     });
   }
   // Filter form control to default size

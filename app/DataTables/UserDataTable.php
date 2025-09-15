@@ -2,98 +2,90 @@
 
 namespace App\DataTables;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Models\User;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class UserDataTable extends DataTable
 {
-    /**
-     * Build DataTable class.
-     *
-     * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
-     */
     public function dataTable($query)
     {
-        $user = Auth::user();
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('action', function($row) use($user){
-                $btn = "";
-                if($user->can('User Role Create')){
-                    $btn .= '<a href="'.route('user.role',$row->id).'" class="txt-primary m-1"><i data-feather="box"></i></a>';
-                }
-                if($user->can('User Update')){
-                    $btn .= '<a href="'.route('user.edit',$row->id).'" class="txt-info m-1"><i data-feather="edit-3"></i></a>';
-                }
-                return $btn;
-            });
+            ->addColumn('foto', function ($user) {
+                return '<img src="'.asset('storage/'.$user->foto).'" width="40" height="40" class="rounded-circle">';
+            })
+            ->addColumn('action', function ($user) {
+                $edit = '<a href="'.route('user.edit', $user->id).'" 
+                        class="btn btn-sm btn-text-secondary rounded-pill btn-icon"
+                        data-bs-toggle="tooltip" title="Edit">
+                        <i class="ri ri-edit-line icon-20px"></i></a>';
+
+                $delete = '<form action="'.route('user.destroy', $user->id).'" method="POST" style="display:inline-block;">
+                                '.csrf_field().method_field('DELETE').'
+                                <button type="submit" class="btn btn-sm btn-text-secondary rounded-pill btn-icon"
+                                onclick="return confirm(\'Yakin ingin menghapus?\')" data-bs-toggle="tooltip" title="Delete">
+                                <i class="ri ri-delete-bin-line icon-20px"></i>
+                                </button>
+                            </form>';
+
+                return $edit . ' ' . $delete;
+            })
+            ->rawColumns(['foto', 'action']);
     }
 
-    /**
-     * Get query source of dataTable.
-     *
-     * @param \App\Models\User $model
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function query(User $model)
     {
-        $user = Auth::user();
-        if($user->hasRole('Super Admin')){
-            return $model->newQuery()->orderBy('id');
-        }
-        return $model->newQuery()->where('id', '!=', '1')->orderBy('id');
+        return $model->newQuery();
     }
 
-    /**
-     * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
     public function html()
     {
         return $this->builder()
-                    ->setTableId('user-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1);
+            ->setTableId('user-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->orderBy(1)
+            ->responsive(true)
+            ->addTableClass('table table-bordered table-striped table-hover align-middle')
+            ->parameters([
+                'dom' => '<"row mb-3"
+                              <"col-md-6 d-flex align-items-center"l>
+                              <"col-md-6 d-flex justify-content-end"f>
+                           >
+                           <"table-responsive"tr>
+                           <"row mt-3"
+                              <"col-md-6"i>
+                              <"col-md-6 d-flex justify-content-end"p>
+                           >',
+                'language' => [
+                    'search' => '',
+                    'searchPlaceholder' => 'Search user...',
+                    'lengthMenu' => '_MENU_ entries per page',
+                    'info' => 'Showing _START_ to _END_ of _TOTAL_ entries',
+                    'paginate' => [
+                        'previous' => '<i class="ri-arrow-left-s-line"></i>',
+                        'next' => '<i class="ri-arrow-right-s-line"></i>'
+                    ],
+                ],
+            ]);
     }
 
-    /**
-     * Get columns.
-     *
-     * @return array
-     */
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex'),
-            Column::make('username'),
-            Column::make('name'),
-            Column::make('email'),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+            Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
+            Column::make('foto')->title('Foto')->orderable(false)->searchable(false)->width(60),
+            Column::make('username')->title('Username'),
+            Column::make('name')->title('Name'),
+            Column::make('email')->title('Email'),
+            Column::computed('action')->title('Action')->exportable(false)->printable(false)->width(120),
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
+    protected function filename(): string
     {
-        return 'User_' . date('YmdHis');
+        return 'Users_' . date('YmdHis');
     }
 }

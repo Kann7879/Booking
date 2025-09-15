@@ -18,6 +18,7 @@ Breadcrumbs::for('user.index', function (BreadcrumbTrail $trail) {
 
 // Home > User > [Update]
 Breadcrumbs::for('user.edit', function (BreadcrumbTrail $trail, $user) {
+    // dd($user);
     $trail->parent('user.index');
     $trail->push('Update [' . $user->name . ']', route('user.edit', $user));
 });

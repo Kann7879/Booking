@@ -8,7 +8,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-
+use Illuminate\Support\Facades\Hash;
 use App\DataTables\UserDataTable;
 
 class UserController extends Controller
@@ -20,10 +20,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserDataTable $dataTable)
     {
-        $this->data['users'] = User::all();
-        return view('user.index', $this->data);
+        return $dataTable->render('user.index');
     }
 
     /**
@@ -63,41 +62,56 @@ class UserController extends Controller
         return redirect('/user')->with('success', 'New user has been created!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $this->data['user_data'] = User::where('id',$id)->first();
-        $this->data['action'] = "/user/".$id;
+        $this->data['user_data'] = $user;
+        $this->data['action'] = "/user/".$user->id;
         return view('user.form', $this->data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\UpdateUserRequest  $request
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+public function update(UpdateUserRequest $request, User $user)
+{
+    // Ambil data hasil validasi
+    $validatedData = $request->validated();
+
+    // Handle foto baru
+    if ($request->hasFile('foto')) {
+        // Hapus foto lama kalau ada
+        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+            Storage::disk('public')->delete($user->foto);
+        }
+
+        // Simpan foto baru
+        $validatedData['foto'] = $request->file('foto')->store('user_photos', 'public');
     }
+
+    // Handle password (jangan overwrite kalau kosong)
+    if ($request->filled('password')) {
+        $validatedData['password'] = bcrypt($request->password);
+    } else {
+        unset($validatedData['password']);
+    }
+
+    // Update user dengan data valid
+    $user->update($validatedData);
+
+    return redirect('/user')->with('success', 'User has been updated!');
+}
+
 
     public function role(User $user)
     {

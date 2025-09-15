@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreUserRequest extends FormRequest
+
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +25,36 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-       return [
-            'username' => 'required|string|max:50|unique:users,username' . $this->user->id,
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|max:255|unique:users,email' . $this->user->id,
-            'foto'     => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // default no_image.jpg dipakai jika kosong
-            'password' => 'required|string|min:8|confirmed',
+        return [
+            'username' => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('users', 'username')->ignore($this->user->id),
+            ],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->user->id),
+            ],
+            'foto' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,gif',
+                'max:2048',
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+            ],
         ];
     }
 }

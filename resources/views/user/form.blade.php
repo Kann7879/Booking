@@ -2,10 +2,12 @@
     $sub_title = ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Dashboard';
 
     if (isset($user_data)) {
+        // dd('tes');
         $breadcrumb_parent = Breadcrumbs::generate(Request::route()->getName(), $user_data)
             ->where('title', '!=', $breadcrumb->title)
             ->last();
     } else {
+        // dd('tes2');
         $breadcrumb_parent = Breadcrumbs::generate(Request::route()->getName())
             ->where('title', '!=', $breadcrumb->title)
             ->last();
@@ -22,8 +24,8 @@
         {{ isset($user_data) ? Breadcrumbs::render(Request::route()->getName(), $user_data) : Breadcrumbs::render(Request::route()->getName()) }}
 
         <div class="card mb-6">
-            <form class="card-body" method="post" action="{{ $action }}">
-                @isset($user_data) @method('put') @endisset
+            <form class="card-body" method="POST" action="{{ $action }}">
+                @isset($user_data) @method('PUT') @endisset
                 @csrf
                 <div class="row mb-4">
                     <label class="col-sm-3 col-form-label" for="username">Username</label>

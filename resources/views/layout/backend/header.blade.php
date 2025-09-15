@@ -8,8 +8,9 @@
             </div>
 
               <div class="d-flex align-items-center">
-                <h3 class="mb-0 fw-semibold">{{$sub_title}}</h3>
+                  <h3 class="mb-0 fw-semibold w-100 text-truncate">{{$sub_title}}</h3>
               </div>
+
 
             <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
               <!-- Search -->

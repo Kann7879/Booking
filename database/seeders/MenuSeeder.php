@@ -52,7 +52,6 @@ class MenuSeeder extends Seeder
             'menu_id'            => $setting->id,
             'nama_menu'          => 'User Management',
             'permission_group_id'=> 8,
-            'icon'               => 'ri-user-settings-line',
             'status'             => '1',
             'sort'               => '1',
         ]);

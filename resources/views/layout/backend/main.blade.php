@@ -28,6 +28,7 @@
       rel="stylesheet" />
 
     <link rel="stylesheet" href="{{asset('assets/vendor/fonts/iconify-icons.css')}}" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Core CSS -->
     <!-- build:css assets/vendor/css/theme.css -->    
@@ -40,14 +41,12 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
     <!-- endbuild -->    
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/plyr/plyr.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-fixedcolumns-bs5/fixedcolumns.bootstrap5.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-fixedheader-bs5/fixedheader.bootstrap5.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+
     <!-- Row Group CSS -->
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css')}}" />
     <!-- Form Validation -->
@@ -60,9 +59,8 @@
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 
-    <!--? Config: Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file. -->
-
     <script src="{{asset('assets/js/config.js')}}"></script>
+    @stack('styles')
   </head>
 
   <body>
@@ -103,24 +101,18 @@
     <!-- Vendors JS -->
     <script src="{{asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
     <!-- Flat Picker -->
-    <script src="{{asset('assets/vendor/libs/cleave-zen/cleave-zen.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
-    <<!-- Form Validation -->
+    <!-- Form Validation -->
     <script src="{{asset('assets/vendor/libs/@form-validation/popular.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/@form-validation/bootstrap5.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/@form-validation/auto-focus.js')}}"></script>
 
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
-
-    <!-- Page JS -->
-    <script src="{{asset('assets/js/tables-datatables-basic.js')}}"></script>
-    <script src="{{asset('assets/js/tables-datatables-extensions.js')}}"></script>
-    <script src="{{asset('assets/js/form-layouts.js')}}"></script>
-    <script src="{{asset('assets/js/app-academy-course-details.js')}}"></script>
-
+    
+    @stack('scripts')
   </body>
 </html>
   
