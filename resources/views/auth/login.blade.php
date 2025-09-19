@@ -46,11 +46,17 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
 
+                <!-- Forgot Password -->
+                <div class="text-center mb-3">
+                    <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot Password?</a>
+                </div>
+
                 <!-- Sign Up Button -->
                 <div class="text-center">
                     <span>Don't have an account?</span>
                     <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm ms-2">Sign Up</a>
                 </div>
+
             </form>
         </div>
     </div>
