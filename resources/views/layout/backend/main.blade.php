@@ -46,6 +46,8 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
 
     <!-- Row Group CSS -->
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css')}}" />
@@ -76,7 +78,7 @@
             @include('layout.backend.header')
             <!-- Content wrapper -->
             <div class="content-wrapper">
-                  @yield('container')  
+                  @yield('content')  
             </div>
           </div>
       </div>  
@@ -94,7 +96,7 @@
     <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/hammer/hammer.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/i18n/i18n.js')}}"></script>
-    <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
+    <script src="{{asset('assets/vendor/js/menu.js')}}"></script>\
 
     <!-- endbuild -->
 
@@ -104,6 +106,7 @@
     <script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
     <!-- Form Validation -->
     <script src="{{asset('assets/vendor/libs/@form-validation/popular.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/@form-validation/bootstrap5.js')}}"></script>

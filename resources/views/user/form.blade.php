@@ -19,7 +19,7 @@
     'sub_title' => $sub_title,
 ])
 
-@section('container')
+@section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         {{ isset($user_data) ? Breadcrumbs::render(Request::route()->getName(), $user_data) : Breadcrumbs::render(Request::route()->getName()) }}
 

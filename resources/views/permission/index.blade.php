@@ -6,13 +6,14 @@
 ])
 
 @section('content')
+
 <div class="container-xxl flex-grow-1 container-p-y">
     {{ Breadcrumbs::render(Request::route()->getName()) }}
 
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">{{$sub_title}}</h5>
-            <a href="{{ route('user.create') }}" class="btn btn-primary btn-sm">
+            <a href="{{ route('permission.create') }}" class="btn btn-primary btn-sm">
                 <i class="ri-add-line me-1"></i>Create New
             </a>
         </div>
@@ -61,3 +62,4 @@
     });
     </script>
 @endpush
+

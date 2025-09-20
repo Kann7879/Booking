@@ -2,28 +2,26 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\Permission;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class PermissionDataTable extends DataTable
 {
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('foto', function ($row) {
-                return '<img src="'.asset('storage/'.$row->foto).'" width="40" height="40" class="rounded-circle">';
-            })
+            ->addColumn('permission_group', fn($p) => $p->permissiongroup->name ?? '-') // relasi group
             ->addColumn('action', function ($row) {
-                $edit = '<a href="'.route('user.edit', $row->id).'" 
-                        class="btn btn-sm btn-text-secondary rounded-pill btn-icon"
-                        data-bs-toggle="tooltip" title="Edit">
-                        <i class="ri ri-edit-line icon-20px"></i></a>';
+                $edit = '<a href="'.route('permission.edit', $row->id).'" 
+                            class="btn btn-sm btn-text-secondary rounded-pill btn-icon"
+                            data-bs-toggle="tooltip" title="Edit">
+                            <i class="ri ri-edit-line icon-20px"></i></a>';
 
                 $delete = '
-                            <form action="'.route('user.destroy', $row->id).'" method="POST" style="display:inline-block;" class="delete-form">
+                            <form action="'.route('permission.destroy', $row->id).'" method="POST" style="display:inline-block;" class="delete-form">
                                 '.csrf_field().method_field('DELETE').'
                                 <button type="button" class="btn btn-sm btn-text-secondary rounded-pill btn-icon delete-btn"
                                     data-id="'.$row->id.'"
@@ -32,20 +30,20 @@ class UserDataTable extends DataTable
                                 </button>
                             </form>';
 
-                return $edit . ' ' . $delete;
+                return $edit.' '.$delete;
             })
-            ->rawColumns(['foto', 'action']);
+            ->rawColumns(['action']);
     }
 
-    public function query(User $model)
+    public function query(Permission $model)
     {
-        return $model->newQuery();
+        return $model->with('permissiongroup'); // eager-load group
     }
 
     public function html()
     {
         return $this->builder()
-            ->setTableId('user-table')
+            ->setTableId('permission-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
@@ -62,13 +60,13 @@ class UserDataTable extends DataTable
                               <"col-md-6 d-flex justify-content-end"p>
                            >',
                 'language' => [
-                    'search' => 'Search',
-                    'searchPlaceholder' => 'Search user...',
-                    'lengthMenu' => '_MENU_ Entries',
-                    'info' => 'Showing _START_ to _END_ of _TOTAL_ entries',
-                    'paginate' => [
+                    'search'        => 'Search',
+                    'searchPlaceholder' => 'Search permission...',
+                    'lengthMenu'    => '_MENU_ Entries',
+                    'info'          => 'Showing _START_ to _END_ of _TOTAL_ entries',
+                    'paginate'      => [
                         'previous' => '<i class="ri-arrow-left-s-line"></i>',
-                        'next' => '<i class="ri-arrow-right-s-line"></i>'
+                        'next'     => '<i class="ri-arrow-right-s-line"></i>'
                     ],
                 ],
             ]);
@@ -78,16 +76,19 @@ class UserDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
-            Column::make('foto')->title('Foto')->orderable(false)->searchable(false)->width(60),
-            Column::make('username')->title('Username'),
-            Column::make('name')->title('Name'),
-            Column::make('email')->title('Email'),
-            Column::computed('action')->title('Action')->exportable(false)->printable(false)->width(120),
+            Column::make('name')->title('Permission Name'),
+            Column::make('permission_group')->title('Group')->orderable(false),
+            Column::make('guard_name')->title('Guard'),
+            Column::computed('action')
+                ->title('Action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(120),
         ];
     }
 
     protected function filename(): string
     {
-        return 'Users_' . date('YmdHis');
+        return 'Permissions_' . date('YmdHis');
     }
 }

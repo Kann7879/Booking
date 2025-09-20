@@ -2,28 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\RolesAuthorizable;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\PermissionGroup;
 use App\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
+use App\DataTables\RoleDataTable;
 
 class RoleController extends Controller
 {
-    use RolesAuthorizable;
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RoleDataTable $dataTable)
     {
-        $this->data['roles'] = Role::all();
-
-        return view('role.index', $this->data);
+        return $dataTable->render('role.index');
     }
 
     /**

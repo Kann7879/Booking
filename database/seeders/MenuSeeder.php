@@ -72,7 +72,7 @@ class MenuSeeder extends Seeder
             'nama_menu'          => 'Permission Group',
             'permission_group_id'=> 8,
             'icon'               => 'ri-group-line',
-            'href'               => '/settings/permission-groups',
+            'href'               => '/permissiongroup',
             'status'             => '1',
             'sort'               => '2',
         ]);
@@ -82,7 +82,7 @@ class MenuSeeder extends Seeder
             'nama_menu'          => 'Permissions',
             'permission_group_id'=> 8,
             'icon'               => 'ri-key-2-line',
-            'href'               => '/settings/permissions',
+            'href'               => '/permission',
             'status'             => '1',
             'sort'               => '3',
         ]);
@@ -92,7 +92,7 @@ class MenuSeeder extends Seeder
             'nama_menu'          => 'Roles',
             'permission_group_id'=> 8,
             'icon'               => 'ri-shield-user-line',
-            'href'               => '/settings/roles',
+            'href'               => '/role',
             'status'             => '1',
             'sort'               => '4',
         ]);
@@ -103,7 +103,7 @@ class MenuSeeder extends Seeder
             'nama_menu'          => 'Web Setting',
             'permission_group_id'=> 8,
             'icon'               => 'ri-global-line',
-            'href'               => '/settings/web',
+            'href'               => '/web',
             'status'             => '1',
             'sort'               => '2',
         ]);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\UsersAuthorizable;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
