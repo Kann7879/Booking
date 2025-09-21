@@ -1,3 +1,4 @@
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu">
   <div class="app-brand demo">
     <a href="{{ route('dashboard') }}" class="app-brand-link">
@@ -29,7 +30,7 @@
 
   <ul class="menu-inner py-1">
     <!-- Dashboard -->
-    <li class="menu-item">
+    <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
       <a href="{{ route('dashboard') }}" class="menu-link">
         <i class="menu-icon icon-base ri ri-dashboard-line"></i>
         <div data-i18n="Dashboard">Dashboard</div>

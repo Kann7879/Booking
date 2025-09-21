@@ -22,7 +22,6 @@ class MenuSeeder extends Seeder
             'menu_id'            => $artikel->id,
             'nama_menu'          => 'Daftar Artikel',
             'permission_group_id'=> 7,
-            'icon'               => 'ri-file-list-3-line',
             'href'               => '/artikel',
             'status'             => '1',
             'sort'               => '1',
@@ -32,7 +31,6 @@ class MenuSeeder extends Seeder
             'menu_id'            => $artikel->id,
             'nama_menu'          => 'Tambah Artikel',
             'permission_group_id'=> 7,
-            'icon'               => 'ri-file-add-line',
             'href'               => '/artikel/create',
             'status'             => '1',
             'sort'               => '2',
@@ -61,7 +59,6 @@ class MenuSeeder extends Seeder
             'menu_id'            => $userManagement->id,
             'nama_menu'          => 'Users',
             'permission_group_id'=> 1,
-            'icon'               => 'ri-user-line',
             'href'               => '/user',
             'status'             => '1',
             'sort'               => '1',
@@ -71,7 +68,6 @@ class MenuSeeder extends Seeder
             'menu_id'            => $userManagement->id,
             'nama_menu'          => 'Permission Group',
             'permission_group_id'=> 8,
-            'icon'               => 'ri-group-line',
             'href'               => '/permissiongroup',
             'status'             => '1',
             'sort'               => '2',
@@ -81,7 +77,6 @@ class MenuSeeder extends Seeder
             'menu_id'            => $userManagement->id,
             'nama_menu'          => 'Permissions',
             'permission_group_id'=> 8,
-            'icon'               => 'ri-key-2-line',
             'href'               => '/permission',
             'status'             => '1',
             'sort'               => '3',
@@ -91,7 +86,6 @@ class MenuSeeder extends Seeder
             'menu_id'            => $userManagement->id,
             'nama_menu'          => 'Roles',
             'permission_group_id'=> 8,
-            'icon'               => 'ri-shield-user-line',
             'href'               => '/role',
             'status'             => '1',
             'sort'               => '4',
@@ -102,10 +96,19 @@ class MenuSeeder extends Seeder
             'menu_id'            => $setting->id,
             'nama_menu'          => 'Web Setting',
             'permission_group_id'=> 8,
-            'icon'               => 'ri-global-line',
             'href'               => '/web',
             'status'             => '1',
             'sort'               => '2',
         ]);
+
+        Menu::create([
+            'nama_menu'          => 'Menu Management',
+            'permission_group_id'=> 8,
+            'href'               => '/menu',
+            'icon'               => 'ri-menu-2-line',
+            'status'             => '1',
+            'sort'               => '3',
+        ]);
+        
     }
 }
