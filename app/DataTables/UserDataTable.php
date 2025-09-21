@@ -17,6 +17,11 @@ class UserDataTable extends DataTable
                 return '<img src="'.asset('storage/'.$row->foto).'" width="40" height="40" class="rounded-circle">';
             })
             ->addColumn('action', function ($row) {
+                $detail = '<a href="'.route('user.role', $row->uuid).'" 
+                            class="btn btn-sm btn-text-info rounded-pill btn-icon"
+                            data-bs-toggle="tooltip" title="Detail / Permissions">
+                            <i class="ri ri-eye-line icon-20px"></i></a>';
+
                 $edit = '<a href="'.route('user.edit', $row->uuid).'" 
                         class="btn btn-sm btn-text-secondary rounded-pill btn-icon"
                         data-bs-toggle="tooltip" title="Edit">
@@ -32,14 +37,14 @@ class UserDataTable extends DataTable
                                 </button>
                             </form>';
 
-                return $edit . ' ' . $delete;
+                return $detail.' '.$edit.' '.$delete;
             })
             ->rawColumns(['foto', 'action']);
     }
 
     public function query(User $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->whereNull('banned_at');;
     }
 
     public function html()

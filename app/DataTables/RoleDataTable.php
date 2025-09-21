@@ -28,7 +28,7 @@ class RoleDataTable extends DataTable
                     <form action="'.route('role.destroy', $row->uuid).'" method="POST" style="display:inline-block;" class="delete-form">
                         '.csrf_field().method_field('DELETE').'
                         <button type="button" class="btn btn-sm btn-text-secondary rounded-pill btn-icon delete-btn"
-                            data-id="'.$row->uuid.'"
+                            data-id="'.$row->id.'"
                             data-bs-toggle="tooltip" title="Delete">
                             <i class="ri ri-delete-bin-line icon-20px"></i>
                         </button>

@@ -30,10 +30,10 @@ Breadcrumbs::for('user.create', function (BreadcrumbTrail $trail) {
 });
 
 // Home > User > Permission
-// Breadcrumbs::for('user.show', function (BreadcrumbTrail $trail, $user) {
-//     $trail->parent('user.index');
-//     $trail->push('User Permission', route('user.show', $user));
-// });
+Breadcrumbs::for('user.show', function (BreadcrumbTrail $trail, $user) {
+    $trail->parent('user.index');
+    $trail->push('User Permission', route('user.show', $user));
+});
 
 // Home > User > Permission
 Breadcrumbs::for('user.role', function (BreadcrumbTrail $trail, $user) {

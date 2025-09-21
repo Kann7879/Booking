@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
             $table->rememberToken();
-            $table->softDeletes();
+            $table->timestamp('banned_at')->nullable();
             $table->timestamps();;
         });
 

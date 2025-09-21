@@ -121,7 +121,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        Role::destroy($role->uuid);
+        $role->delete();
         return redirect('/role')->with('success', 'Role has been deleted!');
     }
 }

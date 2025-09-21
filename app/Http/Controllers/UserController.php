@@ -6,9 +6,10 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use App\DataTables\UserDataTable;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -82,34 +83,34 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-public function update(UpdateUserRequest $request, User $user)
-{
-    // Ambil data hasil validasi
-    $validatedData = $request->validated();
+    public function update(UpdateUserRequest $request, User $user)
+    {
+        // Ambil data hasil validasi
+        $validatedData = $request->validated();
 
-    // Handle foto baru
-    if ($request->hasFile('foto')) {
-        // Hapus foto lama kalau ada
-        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
-            Storage::disk('public')->delete($user->foto);
+        // Handle foto baru
+        if ($request->hasFile('foto')) {
+            // Hapus foto lama kalau ada
+            if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+                Storage::disk('public')->delete($user->foto);
+            }
+
+            // Simpan foto baru
+            $validatedData['foto'] = $request->file('foto')->store('user_photos', 'public');
         }
 
-        // Simpan foto baru
-        $validatedData['foto'] = $request->file('foto')->store('user_photos', 'public');
+        // Handle password (jangan overwrite kalau kosong)
+        if ($request->filled('password')) {
+            $validatedData['password'] = bcrypt($request->password);
+        } else {
+            unset($validatedData['password']);
+        }
+
+        // Update user dengan data valid
+        $user->update($validatedData);
+
+        return redirect('/user')->with('success', 'User has been updated!');
     }
-
-    // Handle password (jangan overwrite kalau kosong)
-    if ($request->filled('password')) {
-        $validatedData['password'] = bcrypt($request->password);
-    } else {
-        unset($validatedData['password']);
-    }
-
-    // Update user dengan data valid
-    $user->update($validatedData);
-
-    return redirect('/user')->with('success', 'User has been updated!');
-}
 
 
     public function role(User $user)
@@ -124,7 +125,7 @@ public function update(UpdateUserRequest $request, User $user)
 
     public function roleaction(Request $request, User $user)
     {
-        $user->syncRoles($request['roles']);
+        $user->syncRoles($request->roles);
 
         return redirect('/user')->with('success', 'Roles ' . $user->name . ' has been updated!');
     }
@@ -137,6 +138,19 @@ public function update(UpdateUserRequest $request, User $user)
      */
     public function destroy($uuid)
     {
-        abort_if(Gate::denies('User Banned'), 403);
+    // Cek permission: hanya user dengan permission 'User Banned' yang bisa ban
+    abort_if(Gate::denies('User Banned'), 403, 'Anda tidak memiliki izin untuk membanned user.');
+
+    // Cari user yang akan dibanned
+    $user = User::where('uuid', $uuid)->firstOrFail();
+
+    // Cek apakah user sudah dibanned
+    if ($user->banned_at) {
+        return redirect()->back()->with('info', 'User sudah dibanned.');
+    }
+
+    // Lakukan banning
+    $user->update(['banned_at' => now()]);
+    return redirect()->back()->with('success', 'User berhasil dibanned.');
     }
 }

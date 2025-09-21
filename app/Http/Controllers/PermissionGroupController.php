@@ -83,7 +83,7 @@ class PermissionGroupController extends Controller
      */
     public function destroy(PermissionGroup $permissiongroup)
     {
-        PermissionGroup::destroy($permissiongroup->uuid);
+        $permissiongroup->delete();
         return redirect('/permissiongroup')->with('success', 'Permission Group has been deleted!');
     }
 }

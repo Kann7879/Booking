@@ -8,11 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\HasUuid;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, HasRoles, Notifiable, HasUuid, SoftDeletes;
+    use HasFactory, HasRoles, Notifiable, HasUuid;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'foto',
         'email',
         'password',
+        'banned_at',
     ];
 
     /**
@@ -47,6 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'banned_at' => 'datetime',
         ];
     }
 

@@ -60,7 +60,7 @@ class MenuController extends Controller
         $this->data['menus'] = Menu::all();
         $this->data['permissiongroups'] = PermissionGroup::all();
         $this->data['menu_data'] = $menu;
-        $this->data['action'] = "/menu/".$menu->id;
+        $this->data['action'] = "/menu/".$menu->uuid;
         return view('menu.form', $this->data);
     }
 
@@ -73,7 +73,7 @@ class MenuController extends Controller
      */
     public function update(UpdateMenuRequest $request, Menu $menu)
     {
-        Menu::find($menu->id)
+        Menu::find($menu->uuid)
             ->update($request->all());
 
         return redirect('/menu')->with('success', 'Menu has been updated!');
@@ -87,7 +87,7 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
-        Menu::destroy($menu->id);
+        $menu->delete();
         return redirect('/menu')->with('success', 'Menu has been deleted!');
     }
 

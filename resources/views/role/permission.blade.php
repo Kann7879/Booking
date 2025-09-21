@@ -19,7 +19,7 @@
 
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Atur Hak Akses : {{ $role->name }}</h5>
+            <h5 class="mb-0">Hak Akses : {{ $role->name }}</h5>
         </div>
 
         <form id="formPermission" method="POST" action="{{ $action }}">
