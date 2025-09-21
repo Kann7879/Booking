@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('username', 50)->unique();
             $table->string('name', 255);
             $table->string('email', 255)->unique();
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();;
         });
 

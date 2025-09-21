@@ -23,8 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/user', App\Http\Controllers\UserController::class)->except('show');
     Route::get('/user/role/{user}', [App\Http\Controllers\UserController::class, 'role'])->name('user.role');
     Route::post('/user/roleaction/{user}', [App\Http\Controllers\UserController::class, 'roleaction']);
-    Route::post('/role/showaction/{role}', [App\Http\Controllers\RoleController::class, 'showaction'])
-     ->name('role.showaction');
+    Route::post('/role/showaction/{role}', [App\Http\Controllers\RoleController::class, 'showaction']);
     Route::resource('/role', App\Http\Controllers\RoleController::class);
 
 

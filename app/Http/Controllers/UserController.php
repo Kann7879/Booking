@@ -71,7 +71,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $this->data['user_data'] = $user;
-        $this->data['action'] = "/user/".$user->id;
+        $this->data['action'] = "/user/".$user->uuid;
         return view('user.form', $this->data);
     }
 
@@ -118,7 +118,7 @@ public function update(UpdateUserRequest $request, User $user)
         $this->data['permissions'] = $user->getAllPermissions();
         $this->data['user'] = $user;
         //return $this->data['permissions'];
-        $this->data['action'] = "/user/roleaction/" . $user->id;
+        $this->data['action'] = "/user/roleaction/" . $user->uuid;
         return view('user.role', $this->data);
     }
 
@@ -132,10 +132,10 @@ public function update(UpdateUserRequest $request, User $user)
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $uuid
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
         abort_if(Gate::denies('User Banned'), 403);
     }

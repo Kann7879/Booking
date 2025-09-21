@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\View;
 
 class MenuController extends Controller
 {
-    use MenusAuthorizable;
-
     /**
      * Display a listing of the resource.
      *

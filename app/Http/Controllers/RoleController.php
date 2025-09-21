@@ -54,29 +54,32 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $this->data['action'] = "/role/showaction/" . $role->id;
-        $this->data['permission_groups'] = PermissionGroup::whereNull('permission_group_id')->get();
-        $this->data['permissions'] = Permission::whereNull('permission_group_id')->get();
-
-        $this->data['role'] = $role;
+        $this->data['action']          = "/role/showaction/".$role->uuid;
+        $this->data['permission_groups'] = PermissionGroup::with('permissions')->get(); // eager-load
+        $this->data['permissions']      = Permission::whereNull('permission_group_id')->get();
+        $this->data['role']             = $role->load('permissions'); // hak akses yg sudah dimiliki
 
         return view('role.permission', $this->data);
     }
 
     public function showaction(Request $request, Role $role)
     {
-        $permission_array = explode(',', $request['permission']);
+        /* 1. ambil daftar yg dicentang, buang elemen kosong */
+        $permission_array = array_filter(explode(',', $request->input('permission', '')));
 
-        foreach ($role->permissions as $permission) {
-            if (!in_array($permission['id'], $permission_array)) {
-                $permission = Permission::find($permission['id']);
-                $role->revokePermissionTo($permission);
+        /* 2. hapus permission yg tidak ada di daftar baru */
+        foreach ($role->permissions as $perm) {
+            if (!in_array($perm->id, $permission_array)) {
+                $role->revokePermissionTo($perm);   // $perm sudah model, tak perlu find lagi
             }
         }
 
-        foreach ($permission_array as $permission_id) {
-            $permission = Permission::find($permission_id);
-            $role->givePermissionTo($permission['name']);
+        /* 3. berikan permission baru */
+        foreach ($permission_array as $id) {
+            $permission = Permission::find($id);
+            if ($permission) {                     // pastikan ditemukan
+                $role->givePermissionTo($permission->name);
+            }
         }
 
         return redirect('/role')->with('success', 'Permission has been updated!');
@@ -91,7 +94,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $this->data['role_data'] = $role;
-        $this->data['action'] = "/role/" . $role->id;
+        $this->data['action'] = "/role/" . $role->uuid;
         return view('role.form', $this->data);
     }
 
@@ -104,7 +107,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        Role::find($role->id)
+        Role::find($role->uuid)
             ->update($request->all());
 
         return redirect('/role')->with('success', 'Role has been updated!');
@@ -118,7 +121,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        Role::destroy($role->id);
+        Role::destroy($role->uuid);
         return redirect('/role')->with('success', 'Role has been deleted!');
     }
 }

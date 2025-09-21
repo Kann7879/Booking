@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PermissionGroup;
+use App\Models\Traits\HasUuid;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
 {
-    use hasFactory;
+    use hasFactory, HasUuid, SoftDeletes;
     protected $fillable = [
         'menu_id', 'nama_menu', 'icon', 'permission_group_id', 'href', 'status', 'sort'
     ];
@@ -25,6 +27,11 @@ class Menu extends Model
     public function permissionGroup()
     {
         return $this->belongsTo(PermissionGroup::class, 'permission_group_id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
     
 }

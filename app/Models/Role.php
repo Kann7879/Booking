@@ -6,9 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role as SpatieRole;
 use App\Models\PermissionGroup;
 use App\Models\Permission;
+use App\Models\Traits\HasUuid;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Role extends Model
+class Role extends SpatieRole
 {
-    protected $fillable = ['name', 'guard_name', 'permission_group_id'];
+    use HasUuid, SoftDeletes;
 
+    protected $guarded = ['id','uuid'];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 }

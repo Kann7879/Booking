@@ -15,16 +15,16 @@ class PermissionDataTable extends DataTable
             ->addIndexColumn()
             ->addColumn('permission_group', fn($p) => $p->permissiongroup->name ?? '-') // relasi group
             ->addColumn('action', function ($row) {
-                $edit = '<a href="'.route('permission.edit', $row->id).'" 
+                $edit = '<a href="'.route('permission.edit', $row->uuid).'" 
                             class="btn btn-sm btn-text-secondary rounded-pill btn-icon"
                             data-bs-toggle="tooltip" title="Edit">
                             <i class="ri ri-edit-line icon-20px"></i></a>';
 
                 $delete = '
-                            <form action="'.route('permission.destroy', $row->id).'" method="POST" style="display:inline-block;" class="delete-form">
+                            <form action="'.route('permission.destroy', $row->uuid).'" method="POST" style="display:inline-block;" class="delete-form">
                                 '.csrf_field().method_field('DELETE').'
                                 <button type="button" class="btn btn-sm btn-text-secondary rounded-pill btn-icon delete-btn"
-                                    data-id="'.$row->id.'"
+                                    data-id="'.$row->uuid.'"
                                     data-bs-toggle="tooltip" title="Delete">
                                     <i class="ri ri-delete-bin-line icon-20px"></i>
                                 </button>

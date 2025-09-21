@@ -15,13 +15,15 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('menu_id')->nullable()->unsigned();
             $table->string('nama_menu', 70);
             $table->string('icon', 30)->nullable();
             $table->foreignId('permission_group_id')->nullable()->unsigned();
             $table->string('href', 100)->nullable();
             $table->boolean('status')->default(true);
-            $table->tinyInteger('sort')->default('1');            
+            $table->tinyInteger('sort')->default('1');  
+            $table->softDeletes();          
             $table->timestamps();
         });
     }

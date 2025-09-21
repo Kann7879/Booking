@@ -57,7 +57,7 @@ class PermissionController extends Controller
         $this->data['permissiongroups'] = PermissionGroup::all();
 
         $this->data['permission_data'] = $permission;
-        $this->data['action'] = "/permission/".$permission->id;
+        $this->data['action'] = "/permission/".$permission->uuid;
         return view('permission.form', $this->data);
     }
 
@@ -70,7 +70,7 @@ class PermissionController extends Controller
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
-        Permission::find($permission->id)
+        Permission::find($permission->uuid)
             ->update($request->all());
 
         return redirect('/permission')->with('success', 'Permission has been updated!');
@@ -84,7 +84,7 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        Permission::destroy($permission->id);
+        Permission::destroy($permission->uuid);
         return redirect('/permission')->with('success', 'Permission has been deleted!');
     }
 }
