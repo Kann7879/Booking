@@ -33,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/permission', App\Http\Controllers\PermissionController::class)->except('show');
 
     Route::resource('/menu', App\Http\Controllers\MenuController::class)->except('show');
+    Route::resource('/setting', App\Http\Controllers\SettingController::class)->only(['index', 'store']);
 
     // Route::resource('/article_categories', App\Http\Controllers\ArticleCategoryController::class, ['parameters' => [
     //     'article_categories' => 'articleCategory:slug'

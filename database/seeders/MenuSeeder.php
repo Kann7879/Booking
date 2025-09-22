@@ -96,7 +96,7 @@ class MenuSeeder extends Seeder
             'menu_id'            => $setting->id,
             'nama_menu'          => 'Web Setting',
             'permission_group_id'=> 8,
-            'href'               => '/web',
+            'href'               => '/setting',
             'status'             => '1',
             'sort'               => '2',
         ]);

@@ -13,12 +13,14 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Demo: Academy - My Courses - App | Materialize - Bootstrap Dashboard PRO</title>
-
-    <meta name="description" content="" />
+    <title>{{ settings()['title'] ?? config('app.name') }}</title>
+    <meta name="author" content="{{ settings()['author'] ?? '' }}">
+    <meta name="description" content="{{ settings()['description'] ?? '' }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/favicon.ico')}}" />
+    <link rel="icon" type="image/png"
+      href="{{ settings()['favicon'] ? asset('storage/' . settings()['favicon']) : asset('images/no-image.png') }}">
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,6 +50,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/jstree/jstree.css') }}" />
     <!-- Row Group CSS -->
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css')}}" />
@@ -112,6 +115,7 @@
     <script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
     <script src="{{ asset('assets/vendor/libs/jstree/jstree.js') }}"></script>
     <!-- Form Validation -->
     <script src="{{asset('assets/vendor/libs/@form-validation/popular.js')}}"></script>

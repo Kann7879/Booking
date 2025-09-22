@@ -165,3 +165,12 @@ Breadcrumbs::for('article_categories.create', function (BreadcrumbTrail $trail) 
 // **************************** END ARTICLE CATEGORY ***************************
 
 
+// **************************** SETTING ***************************
+
+// Home > Article Categories
+Breadcrumbs::for('setting.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Web Setting', route('setting.index'));
+});
+
+// **************************** END SETTING ***************************
