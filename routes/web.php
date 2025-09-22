@@ -35,9 +35,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/menu', App\Http\Controllers\MenuController::class)->except('show');
     Route::resource('/setting', App\Http\Controllers\SettingController::class)->only(['index', 'store']);
 
-    // Route::resource('/article_categories', App\Http\Controllers\ArticleCategoryController::class, ['parameters' => [
-    //     'article_categories' => 'articleCategory:slug'
-    // ]])->except('show');
+    Route::resource('/article_categories', App\Http\Controllers\ArticleCategoryController::class, ['parameters' => [
+        'article_categories' => 'articleCategory:slug'
+    ]])->except('show');
 
     // Route::resource('/article', App\Http\Controllers\ArticleController::class)->parameters([
     //     'article' => 'article:slug',
