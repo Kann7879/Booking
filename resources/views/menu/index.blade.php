@@ -13,19 +13,21 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">{{$sub_title}}</h5>
-            <a href="{{ route('permission.create') }}" class="btn btn-primary btn-sm">
+            <a href="{{ route('menu.create') }}" class="btn btn-primary btn-sm">
                 <i class="ri-add-line me-1"></i>Create New
             </a>
         </div>
 
-        <h1>haii</h1>
+        <div class="card-datatable text-nowrap p-3">
+            {{ $dataTable->table(['width' => '100%']) }}
+        </div>
     </div>
 </div>
 @endsection
 
 @push('scripts')
 {{-- pastikan setelah DataTable --}}
-    {{-- {{ $dataTable->scripts(attributes: ['type' => 'module']) }} --}}
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
     {{-- SweetAlert otomatis --}}
     @if(session('success'))

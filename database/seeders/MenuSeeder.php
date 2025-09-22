@@ -102,10 +102,10 @@ class MenuSeeder extends Seeder
         ]);
 
         Menu::create([
+            'menu_id'            => $setting->id,
             'nama_menu'          => 'Menu Management',
             'permission_group_id'=> 8,
             'href'               => '/menu',
-            'icon'               => 'ri-menu-2-line',
             'status'             => '1',
             'sort'               => '3',
         ]);

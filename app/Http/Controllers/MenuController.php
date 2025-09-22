@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\MenusAuthorizable;
 use App\Models\Menu;
 use App\Models\PermissionGroup;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
+use App\DataTables\MenuDataTable;
 use Illuminate\Support\Facades\View;
 
 class MenuController extends Controller
@@ -16,11 +16,9 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(MenuDataTable $dataTable)
     {
-        $this->data['menus'] = Menu::all();
-
-        return view('menu.index', $this->data);
+        return $dataTable->render('menu.index');
     }
 
     /**
@@ -73,8 +71,7 @@ class MenuController extends Controller
      */
     public function update(UpdateMenuRequest $request, Menu $menu)
     {
-        Menu::find($menu->uuid)
-            ->update($request->all());
+        Menu::where('uuid', $menu->uuid)->firstOrFail()->update($request->all());
 
         return redirect('/menu')->with('success', 'Menu has been updated!');
     }
