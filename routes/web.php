@@ -39,9 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'article_categories' => 'articleCategory:slug'
     ]])->except('show');
 
-    // Route::resource('/article', App\Http\Controllers\ArticleController::class)->parameters([
-    //     'article' => 'article:slug',
-    // ]);
+    Route::resource('/article', App\Http\Controllers\ArticleController::class)->parameters([
+        'article' => 'article:slug',
+    ]);
 
     // Route::prefix('setting')->group(function () {
     //     Route::get('/',[App\Http\Controllers\SettingController::class, 'index'])->name('setting.index');

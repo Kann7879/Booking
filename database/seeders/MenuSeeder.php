@@ -20,18 +20,18 @@ class MenuSeeder extends Seeder
 
         Menu::create([
             'menu_id'            => $artikel->id,
-            'nama_menu'          => 'Daftar Artikel',
+            'nama_menu'          => 'Artikel Kategori',
             'permission_group_id'=> 7,
-            'href'               => '/artikel',
+            'href'               => '/article_categories',
             'status'             => '1',
             'sort'               => '1',
         ]);
 
         Menu::create([
             'menu_id'            => $artikel->id,
-            'nama_menu'          => 'Tambah Artikel',
+            'nama_menu'          => 'Artikel',
             'permission_group_id'=> 7,
-            'href'               => '/artikel/create',
+            'href'               => '/article',
             'status'             => '1',
             'sort'               => '2',
         ]);

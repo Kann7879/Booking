@@ -174,3 +174,31 @@ Breadcrumbs::for('setting.index', function (BreadcrumbTrail $trail) {
 });
 
 // **************************** END SETTING ***************************
+
+// **************************** ARTICLE ***************************
+
+// Home > Article Categories
+Breadcrumbs::for('article.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Article', route('article.index'));
+});
+
+// Home > Article Categories > [Update]
+Breadcrumbs::for('article.edit', function (BreadcrumbTrail $trail, $article) {
+    $trail->parent('article.index');
+    $trail->push('Update [' . $article->title . ']', route('article.edit', $article));
+});
+
+// Home > Article Categories > Create
+Breadcrumbs::for('article.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('article.index');
+    $trail->push('Create', route('article.create'));
+});
+
+// Home > Article Categories > Create
+Breadcrumbs::for('article.show', function (BreadcrumbTrail $trail, $article) {
+    $trail->parent('article.index');
+    $trail->push('Article ' . $article->title, route('article.show', $article));
+});
+
+// **************************** END ARTICLE ***************************
