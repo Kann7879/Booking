@@ -26,8 +26,8 @@
                             <input type="password" name="password" id="reset-password" class="form-control @error('password') is-invalid @enderror" placeholder="Password Baru" required>
                             <label for="reset-password">New Password</label>
                         </div>
-                        <span class="input-group-text cursor-pointer" onclick="togglePassword('reset-password', this)">
-                            <i class="ri ri-eye-off-line"></i>
+                        <span class="input-group-text cursor-pointer">
+                            <i class="icon-base ri ri-eye-off-line"></i>
                         </span>
                     </div>
                     @error('password')
@@ -42,8 +42,8 @@
                             <input type="password" name="password_confirmation" id="reset-password-confirm" class="form-control" placeholder="Konfirmasi Password" required>
                             <label for="reset-password-confirm">Confirm Password</label>
                         </div>
-                        <span class="input-group-text cursor-pointer" onclick="togglePassword('reset-password-confirm', this)">
-                            <i class="ri ri-eye-off-line"></i>
+                        <span class="input-group-text cursor-pointer">
+                            <i class="icon-base ri ri-eye-off-line"></i>
                         </span>
                     </div>
                 </div>

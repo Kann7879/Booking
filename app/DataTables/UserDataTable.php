@@ -14,7 +14,11 @@ class UserDataTable extends DataTable
             ->eloquent($query)
             ->addIndexColumn()
             ->addColumn('foto', function ($row) {
-                return '<img src="'.asset('assets/img/avatars/'.$row->foto).'" width="40" height="40" class="rounded-circle">';
+                $src = $row->foto == '1.png'
+                    ? asset('assets/img/avatars/' . $row->foto)
+                    : asset('storage/uploads/avatars/' . $row->foto);
+
+                return '<img src="'.$src.'" width="40" height="40" class="rounded-circle">';
             })
             ->addColumn('action', function ($row) {
                 $detail = '<a href="'.route('user.role', $row->uuid).'" 
