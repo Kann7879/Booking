@@ -16,8 +16,11 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->string('username', 50)->unique();
             $table->string('name', 255);
+            $table->string('gender', 10)->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('address', 255)->nullable();
             $table->string('email', 255)->unique();
-            $table->string("foto", 100)->default('no_image.jpg');
+            $table->string("foto", 100)->default('1.png');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
             $table->rememberToken();
