@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,5 +19,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('active', function ($expression) {
             return "<?php echo request()->routeIs({$expression}) ? 'active' : ''; ?>";
         });
+        Carbon::setLocale('id');
     }
 }

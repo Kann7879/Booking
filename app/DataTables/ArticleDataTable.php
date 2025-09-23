@@ -27,10 +27,6 @@ class ArticleDataTable extends DataTable
                 ? \Carbon\Carbon::parse($article->published_at)->isoFormat('dddd, D MMMM Y')
                 : '-'
             )
-            ->addColumn('status', fn($article) => $article->status
-                ? '<span class="badge bg-success">Published</span>'
-                : '<span class="badge bg-secondary">Draft</span>'
-            )
             ->addColumn('action', function ($row) {
                 $edit = '';
                 $delete = '';
@@ -58,7 +54,7 @@ class ArticleDataTable extends DataTable
 
                 return $edit.' '.$delete;
             })
-            ->rawColumns(['image', 'status', 'action']);
+            ->rawColumns(['image', 'action']);
     }
 
     /**
@@ -116,7 +112,6 @@ class ArticleDataTable extends DataTable
             Column::make('category')->title('Category'),
             Column::make('author')->title('Author'),
             Column::make('published_at')->title('Published At'),
-            Column::make('status')->title('Status')->orderable(false),
             Column::computed('action')
                 ->title('Action')
                 ->exportable(false)
