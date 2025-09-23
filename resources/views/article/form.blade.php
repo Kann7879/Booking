@@ -27,10 +27,16 @@
 
             <!-- Category -->
             <div class="mb-3 row">
-                <label class="col-sm-3 col-form-label">Category <span class="text-danger">*</span></label>
+                <label class="col-sm-3 col-form-label" for="article_category_id">Category <span class="text-danger">*</span></label>
                 <div class="col-sm-9">
-                    <select name="article_category_id" id="article_category_id"
-                        class="form-select @error('article_category_id') is-invalid @enderror">
+                    <select id="article_category_id" name="article_category_id"
+                        class="form-select select2 @error('article_category_id') is-invalid @enderror"
+                        data-allow-clear="true">
+
+                        <option value="" {{ old('article_category_id', $article_data->article_category_id ?? '') == '' ? 'selected' : '' }}>
+                            -- Pilih Category --
+                        </option>
+
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ old('article_category_id', $article_data->article_category_id ?? '') == $category->id ? 'selected' : '' }}>
@@ -39,7 +45,7 @@
                         @endforeach
                     </select>
                     @error('article_category_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
@@ -85,15 +91,20 @@
                 </div>
             </div>
 
-            <!-- Tags -->
+            <!-- Tags (Tagify) -->
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="tags">Tags</label>
                 <div class="col-sm-9">
-                    <input type="text" id="tags" name="tags"
-                        class="form-control @error('tags') is-invalid @enderror"
-                        value="{{ old('tags', $article_data->tags ?? '') }}" placeholder="Article tags">
+                    <div class="form-floating form-floating-outline">
+                        <input id="tags"
+                            class="form-control @error('tags') is-invalid @enderror"
+                            name="tags"
+                            value="{{ old('tags', $article_data->tags ?? '') }}"
+                            placeholder="Article tags">
+                        <label for="tags">Tags</label>
+                    </div>
                     @error('tags')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
@@ -179,4 +190,51 @@
             Swal.fire({ icon: 'error', title: 'Error', text: "{{ session('error') }}" });
         </script>
     @endif
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: "-- Choose --",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
+
+<script>
+    /* ---------- Tagify keyword ---------- */
+    const keywordInput = document.querySelector('#keyword');
+    const tagifyKeyword = new Tagify(keywordInput, {
+        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+    });
+
+    /* ---------- Tagify tags ---------- */
+    const tagsInput = document.querySelector('#tags');
+    const tagifyTags = new Tagify(tagsInput, {
+        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(',')
+    });
+
+    /* ---------- Preview favicon ---------- */
+    function previewImage(input){
+        const prev = document.getElementById('prev');
+        if(input.files && input.files[0]){
+            const r = new FileReader();
+            r.onload = e => prev.src = e.target.result;
+            r.readAsDataURL(input.files[0]);
+        }
+    }
+
+    /* ---------- Description counter ------ */
+    const desc = document.getElementById('description');
+    const cnt  = document.getElementById('count');
+    const max  = 160;
+
+    function setCount() {
+        const remaining = max - desc.value.length;
+        cnt.textContent = remaining > 0 ? remaining : 0;
+    }
+    setCount();
+    desc.addEventListener('input', setCount);
+</script>
+
 @endpush
