@@ -23,7 +23,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/role/{user}', [App\Http\Controllers\UserController::class, 'role'])->name('user.role');
     Route::post('/user/roleaction/{user}', [App\Http\Controllers\UserController::class, 'roleaction']);
     Route::resource('/user', App\Http\Controllers\UserController::class);
-    
+
+    Route::resource('/acount', App\Http\Controllers\AcountController::class)->only(['index', 'store']);
+
     Route::post('/role/showaction/{role}', [App\Http\Controllers\RoleController::class, 'showaction']);
     Route::resource('/role', App\Http\Controllers\RoleController::class);
 
