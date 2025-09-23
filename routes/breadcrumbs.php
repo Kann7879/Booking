@@ -175,6 +175,16 @@ Breadcrumbs::for('setting.index', function (BreadcrumbTrail $trail) {
 
 // **************************** END SETTING ***************************
 
+// **************************** ACOUNT ***************************
+
+// Home > Acount
+Breadcrumbs::for('acount.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Account', route('acount.index'));
+});
+
+// **************************** END ACOUNT ***************************
+
 // **************************** ARTICLE ***************************
 
 // Home > Article Categories
