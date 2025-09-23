@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateAcountRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 
 class AcountController extends Controller
 {
@@ -43,6 +44,21 @@ class AcountController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Profile berhasil diperbarui!');
+    }
+
+    public function security(){
+        $user = Auth::user();
+        return view('acount.security', compact('user'));
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $user = Auth::user();
+        $user->password = bcrypt($request->newPassword);
+        $user->save();
+
+        return redirect()->route('acount.security')
+                        ->with('success', 'Password changed successfully.');
     }
 
 }

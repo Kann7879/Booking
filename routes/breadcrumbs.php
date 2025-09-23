@@ -177,10 +177,16 @@ Breadcrumbs::for('setting.index', function (BreadcrumbTrail $trail) {
 
 // **************************** ACOUNT ***************************
 
-// Home > Acount
+// Home > Acount > Profile
 Breadcrumbs::for('acount.index', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push('Account', route('acount.index'));
+});
+
+// Home > Acount > Setting
+Breadcrumbs::for('acount.security', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Account', route('acount.security'));
 });
 
 // **************************** END ACOUNT ***************************
