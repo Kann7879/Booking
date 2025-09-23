@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages-account-settings-security.html">
+                        <a class="nav-link" href="{{ route('acount.security') }}">
                             <i class="icon-base ri ri-lock-line icon-sm me-2"></i>Security
                         </a>
                     </li>

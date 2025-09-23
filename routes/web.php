@@ -25,6 +25,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/user', App\Http\Controllers\UserController::class);
 
     Route::resource('/acount', App\Http\Controllers\AcountController::class)->only(['index', 'store']);
+    Route::get('/acount/security', [App\Http\Controllers\AcountController::class, 'security'])->name('acount.security');
+    Route::post('acount/password', [App\Http\Controllers\AcountController::class, 'updatePassword'])->name('acount.password');
 
     Route::post('/role/showaction/{role}', [App\Http\Controllers\RoleController::class, 'showaction']);
     Route::resource('/role', App\Http\Controllers\RoleController::class);
