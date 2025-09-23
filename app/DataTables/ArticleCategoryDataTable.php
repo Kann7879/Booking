@@ -16,10 +16,6 @@ class ArticleCategoryDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('status', fn($category) => $category->status
-                ? '<span class="badge bg-success">Active</span>'
-                : '<span class="badge bg-secondary">Inactive</span>'
-            )
             ->addColumn('action', function ($row) {
                 $edit = '';
                 $delete = '';
@@ -47,7 +43,7 @@ class ArticleCategoryDataTable extends DataTable
 
                 return $edit.' '.$delete;
             })
-            ->rawColumns(['status', 'action']);
+            ->rawColumns(['action']);
     }
 
     /**
@@ -101,8 +97,6 @@ class ArticleCategoryDataTable extends DataTable
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
             Column::make('name')->title('Category Name'),
-            Column::make('slug')->title('Slug'),
-            Column::make('status')->title('Status')->orderable(false),
             Column::computed('action')
                 ->title('Action')
                 ->exportable(false)

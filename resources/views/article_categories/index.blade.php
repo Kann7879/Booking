@@ -22,7 +22,7 @@
         </div>
 
         <div class="card-datatable p-3">
-            {!! $dataTable->table(['class' => 'table table-bordered table-striped table-hover align-middle mb-0']) !!}
+            {!! $dataTable->table(['class' => 'table table-bordered table-hover align-middle mb-0']) !!}
         </div>
     </div>
 </div>
