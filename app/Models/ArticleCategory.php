@@ -13,6 +13,8 @@ class ArticleCategory extends Model
 
     protected $guarded = ['id'];
 
+    protected string $slugFrom = 'name';
+
     public function article()
     {
         return $this->hasMany(Article::class, 'article_category_id');
