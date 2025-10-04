@@ -2,8 +2,14 @@
     $sub_title = ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Dashboard';
 @endphp
 
-@extends('layout.backend.main', ['title' => 'User | ' . config('app.name'), 'sub_title' => $sub_title
+@extends('layout.backend.main', [
+    'title'     => 'User | ' . config('app.name'),
+    'sub_title' => $sub_title
 ])
+
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css"/>
+@endpush
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -36,9 +42,9 @@
 
                         {{-- Avatar --}}
                         <div class="d-flex align-items-start align-items-sm-center gap-6 mb-4">
-                            <img  src="{{ Auth::user()->foto == '1.png' 
-                                        ? asset('assets/img/avatars/' . Auth::user()->foto) 
-                                        : asset('storage/uploads/avatars/' . Auth::user()->foto) }}" 
+                            <img src="{{ Auth::user()->foto == '1.png'
+                                    ? asset('assets/img/avatars/' . Auth::user()->foto)
+                                    : asset('storage/uploads/avatars/' . Auth::user()->foto) }}"
                                  alt="user-avatar"
                                  class="d-block w-px-100 h-px-100 rounded-4"
                                  id="uploadedAvatar" />
@@ -46,15 +52,39 @@
                                 <label for="upload" class="btn btn-primary me-3 mb-4" tabindex="0">
                                     <span class="d-none d-sm-block">Upload new photo</span>
                                     <i class="ri-upload-2-line d-block d-sm-none"></i>
-                                    <input type="file" id="upload" name="foto" hidden accept="image/png, image/jpeg" />
+                                    {{-- TIDAK pakai name="foto" --}}
+                                    <input type="file" id="upload" hidden accept="image/*" />
                                 </label>
                                 <div class="form-text">Allowed JPG, PNG. Max size 2 MB.</div>
                             </div>
                         </div>
 
+                        {{-- Modal Cropper --}}
+                        <div class="modal fade" id="cropperModal" tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Crop Photo (1:1)</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+                              <div class="modal-body text-center">
+                                <div style="max-height:400px;">
+                                  <img id="imageToCrop" src="" class="img-fluid" />
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="cropAndSave">Crop & Save</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {{-- Hidden field untuk hasil crop --}}
+                        <input type="file" name="foto" id="croppedImage" hidden>
+
                         {{-- Fields --}}
                         <div class="row g-5">
-                            {{-- Name --}}
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
                                     <input class="form-control @error('name') is-invalid @enderror"
@@ -65,7 +95,6 @@
                                 </div>
                             </div>
 
-                            {{-- Email --}}
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
                                     <input class="form-control @error('email') is-invalid @enderror"
@@ -76,7 +105,6 @@
                                 </div>
                             </div>
 
-                            {{-- Gender --}}
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
                                     <select id="gender" name="gender" class="form-select select2">
@@ -88,7 +116,6 @@
                                 </div>
                             </div>
 
-                            {{-- Phone --}}
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
                                     <input class="form-control @error('phone') is-invalid @enderror"
@@ -99,7 +126,6 @@
                                 </div>
                             </div>
 
-                            {{-- Address --}}
                             <div class="col-12">
                                 <div class="form-floating form-floating-outline">
                                     <textarea class="form-control @error('address') is-invalid @enderror"
@@ -111,7 +137,6 @@
                             </div>
                         </div>
 
-                        {{-- Buttons --}}
                         <div class="mt-6">
                             <button type="submit" class="btn btn-primary me-3">Save changes</button>
                         </div>
@@ -124,56 +149,62 @@
 @endsection
 
 @push('scripts')
-    {{-- SweetAlert otomatis --}}
-    @if(session('success'))
-        <script>
-            Swal.fire({ icon: 'success', title: 'Success', text: "{{ session('success') }}" });
-        </script>
-    @endif
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 
-    @if(session('error'))
-        <script>
-            Swal.fire({ icon: 'error',   title: 'Error',  text: "{{ session('error') }}" });
-        </script>
-    @endif
-    <script>
-    $(document).on('click', '.delete-btn', function (e) {
-        e.preventDefault();
-        let form = $(this).closest('form');
+@if(session('success'))
+<script>Swal.fire({icon:'success',title:'Success',text:"{{ session('success') }}"});</script>
+@endif
+@if(session('error'))
+<script>Swal.fire({icon:'error',title:'Error',text:"{{ session('error') }}"});</script>
+@endif
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        });
-    });
-    </script>
-    <script>
-        // Select2
-        $(function () {
-            $('.select2').select2({
-                placeholder: "-- Choose --",
-                allowClear: true,
-                width: '100%'
+<script>
+let cropper;
+const uploadInput   = document.getElementById('upload');
+const imageToCrop   = document.getElementById('imageToCrop');
+const uploadedAvatar= document.getElementById('uploadedAvatar');
+const croppedInput  = document.getElementById('croppedImage'); // name="foto"
+const cropperModal  = new bootstrap.Modal(document.getElementById('cropperModal'));
+
+uploadInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = evt => {
+        imageToCrop.src = evt.target.result;
+        cropperModal.show();
+    };
+    reader.readAsDataURL(file);
+});
+
+document.getElementById('cropperModal')
+        .addEventListener('shown.bs.modal', () => {
+            cropper = new Cropper(imageToCrop, {
+                aspectRatio : 1,
+                viewMode    : 1,
+                minContainerWidth : 300,
+                minContainerHeight: 300
             });
-        });
+});
+document.getElementById('cropperModal')
+        .addEventListener('hidden.bs.modal', () => cropper?.destroy());
 
-        // Preview avatar
-        document.getElementById('upload').addEventListener('change', e => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = evt => document.getElementById('uploadedAvatar').src = evt.target.result;
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+document.getElementById('cropAndSave').addEventListener('click', () => {
+    if(!cropper) return;
+
+    canvas = cropper.getCroppedCanvas({ width: 400, height: 400 });
+    canvas.toBlob(blob => {
+        // preview
+        uploadedAvatar.src = URL.createObjectURL(blob);
+
+        // masukkan ke input name="foto"
+        const file = new File([blob], 'avatar.jpg', {type:'image/jpeg'});
+        const dt   = new DataTransfer();
+        dt.items.add(file);
+        croppedInput.files = dt.files;
+
+        cropperModal.hide();
+    }, 'image/jpeg', 0.9);
+});
+</script>
 @endpush
