@@ -459,7 +459,7 @@
               ><span class="align-middle">My Acount</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a class="dropdown-item" href="pages-account-settings-account.html">
               <i class="icon-base ri ri-settings-4-line icon-22px me-3"></i
               ><span class="align-middle">Settings</span>
@@ -488,7 +488,7 @@
               <i class="icon-base ri ri-question-line icon-22px me-3"></i
               ><span class="align-middle">FAQ</span>
             </a>
-          </li>
+          </li> -->
           <li>
             <div class="d-grid px-4 pt-2 pb-1">
               <a class="btn btn-sm btn-danger d-flex"
