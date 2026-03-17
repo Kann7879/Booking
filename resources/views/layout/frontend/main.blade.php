@@ -25,16 +25,18 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f6f8f8;
-            color: #1e293b;
+            background-color: #ffffff;
+            color: #333333;
             font-size: 0.9rem;
             line-height: 1.5;
         }
         
         :root {
-            --primary: #11b4d4;
-            --primary-dark: #0e9fbb;
-            --soft-beige: #f5f2ed;
+            --primary: #2c2c2c;
+            --primary-dark: #1a1a1a;
+            --soft-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --text-light: #666666;
         }
         
         .bg-primary { background-color: var(--primary) !important; }
@@ -46,13 +48,27 @@
             border-color: var(--primary);
             font-size: 0.85rem;
             padding: 0.4rem 1rem;
+            color: #ffffff;
         }
         .btn-primary:hover {
             background-color: var(--primary-dark);
             border-color: var(--primary-dark);
+            color: #ffffff;
         }
         
-        .bg-soft-beige { background-color: var(--soft-beige); }
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+            font-size: 0.85rem;
+            padding: 0.4rem 1rem;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+        }
+        
+        .bg-soft-gray { background-color: var(--soft-gray); }
         
         .backdrop-blur {
             backdrop-filter: blur(6px);
@@ -91,7 +107,7 @@
             scroll-behavior: smooth;
         }
         
-        /* Heading defaults */
+        /* Heading defaults lebih kecil */
         h1 { font-size: 2.2rem; }
         h2 { font-size: 1.8rem; }
         h3 { font-size: 1.4rem; }
@@ -99,47 +115,107 @@
         h5 { font-size: 1rem; }
         h6 { font-size: 0.9rem; }
         
-        /* Container dengan max-width lebih kecil dan padding lebih lega */
+        /* Container lebih rapat */
         .container {
-            max-width: 1200px;
-            padding-left: 2rem;
-            padding-right: 2rem;
+            max-width: 1280px;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
         
-        @media (min-width: 1400px) {
-            .container {
-                max-width: 1320px;
-            }
-        }
-        
-        /* Spacing section */
+        /* Spacing section lebih kecil */
         section {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
         
-        /* Gallery grid improvements */
-        .gallery-grid {
-            margin-left: -0.75rem;
-            margin-right: -0.75rem;
-        }
-        .gallery-grid > [class*="col-"] {
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
+        /* Additional black & white theme styles */
+        .card {
+            border: 1px solid var(--border-color);
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         
-        /* Card hover effect */
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        .border-bottom {
+            border-bottom: 1px solid var(--border-color) !important;
         }
         
-        /* Form spacing */
-        .form-container {
-            max-width: 100%;
-            margin: 0 auto;
+        .border-top {
+            border-top: 1px solid var(--border-color) !important;
+        }
+        
+        .text-muted {
+            color: var(--text-light) !important;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .nav-link {
+            color: #333333;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .navbar-light .navbar-nav .nav-link.active {
+            color: var(--primary);
+        }
+        
+        .footer {
+            border-top: 1px solid var(--border-color);
+            background-color: #fafafa;
+        }
+        
+        .badge.bg-primary {
+            background-color: var(--primary) !important;
+            color: #ffffff;
+        }
+        
+        .badge.bg-light {
+            background-color: var(--soft-gray) !important;
+            color: #333333;
+        }
+        
+        .form-control {
+            border: 1px solid var(--border-color);
+        }
+        
+        .form-control:focus {
+            border-color: #999999;
+            box-shadow: 0 0 0 0.2rem rgba(44, 44, 44, 0.25);
+        }
+        
+        /* Grayscale filter for images if needed */
+        .grayscale {
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+        
+        .grayscale:hover {
+            filter: grayscale(0%);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
@@ -147,10 +223,8 @@
 
     @include('layout.frontend.header')
 
-    <main class="py-3">
-        <div class="container">
-            @yield('content')
-        </div>
+    <main class="py-2">
+        @yield('content')
     </main>
 
     @include('layout.frontend.footer')

@@ -1,8 +1,11 @@
 <nav class="navbar navbar-expand-lg sticky-top bg-white bg-opacity-80 backdrop-blur border-bottom py-2 px-3 px-lg-4">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center gap-1" href="{{ route('home') }}">
-            <span class="material-symbols-outlined text-primary" style="font-size: 1.8rem;">domain</span>
-            <h2 class="fw-bold mb-0" style="font-size: 1.4rem;">LuxeVilla</h2>
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
+            <img src="{{ asset('asset-frontend/images/logo.jpeg') }}" 
+                alt="Amulya Luxury Villa Logo" 
+                style="height: 40px; width: auto;"
+                class="rounded">
+            <h2 class="fw-bold mb-0" style="font-size: 1.4rem;">Amulya Luxury Villa</h2>
         </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

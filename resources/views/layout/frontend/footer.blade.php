@@ -5,7 +5,7 @@
             <div class="col-md-4 text-center text-md-start">
                 <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2">
                     <span class="material-symbols-outlined text-primary" style="font-size: 2.5rem;">domain</span>
-                    <h2 class="fw-bold text-white mb-0">LuxeVilla</h2>
+                    <h2 class="fw-bold text-white mb-0">Amulya Luxury Villa</h2>
                 </div>
                 <p class="mt-3 small">
                     Experience ultimate luxury in our private sanctuary, where modern architecture meets breathtaking coastal views.
@@ -57,10 +57,10 @@
                         <i class="bi bi-envelope me-2"></i> info@luxevilla.com
                     </p>
                     <p class="small">
-                        <i class="bi bi-telephone me-2"></i> +62 123 4567 890
+                        <i class="bi bi-telephone me-2"></i> +62 821-1846-6961
                     </p>
                     <p class="small">
-                        <i class="bi bi-geo-alt me-2"></i> Amalfi Coast, Italy
+                        <i class="bi bi-geo-alt me-2"></i> Jl. Citra Green, Dago, Kec. Cidadap, Kota Bandung, Jawa Barat
                     </p>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 </ul>
             </div>
             <div class="col-md-6 text-center text-md-end small">
-                © 2024 LuxeVilla Retreats. All rights reserved.
+                © 2024 Amulya Luxury Villa Retreats. All rights reserved.
             </div>
         </div>
     </div>
